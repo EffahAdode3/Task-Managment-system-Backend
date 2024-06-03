@@ -7,8 +7,8 @@ const Sequelize = new sequelize(
     process.env.PASSWORD,
      {
     host: 'localhost',
-    dialect:"mysql2", 
-    logging:false
+    dialect:"mysql", 
+    logging:true
 });
 
 export default Sequelize
