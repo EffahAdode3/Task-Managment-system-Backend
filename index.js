@@ -10,7 +10,10 @@ app.use(bodyParser.json());
 app.use(cors());
 dotenv.config();
 const port = process.env.PORT;
-app.use('/', clientRoutes  );
+// app.use('/', clientRoutes  );
+app.get('/api/data', (req, res) => {
+  res.send('Data endpoint');
+});
 
 try {
     await sequelize.authenticate();
