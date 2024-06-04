@@ -10,7 +10,7 @@ const Sequelize = new sequelize(
     host: 'localhost',
     dialect:"mysql", 
     dialectModule: mysql2,
-    logging:true
+    logging:false
 });
 
 export default Sequelize
