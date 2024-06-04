@@ -6,12 +6,12 @@ const Sequelize = new sequelize(
     process.env.DB_Name,
     process.env.USER_NAME,
     process.env.PASSWORD,
+    process.env.PORT,
      {
         // host: process.env.HOST || 'localhost',
         // port: process.env.PORT || 3306, 
-        port:3306,
-    dialectModule: mysql2,
-    logging:false
+        // port:3306,
+        dialectModule: mysql2,
+        logging:false
 });
-
 export default Sequelize
