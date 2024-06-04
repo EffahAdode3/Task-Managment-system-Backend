@@ -11,9 +11,6 @@ app.use(cors());
 dotenv.config();
 const port = process.env.Port;
 app.use('/', clientRoutes  );
-// app.get('/api/data', (req, res) => {
-//   res.send('Data endpoint');
-// });
 
 try {
     await sequelize.authenticate();
