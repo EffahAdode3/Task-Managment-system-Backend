@@ -21,7 +21,7 @@ const SignUpClient = async (req, res) => {
             password: hashedPassword,
         });
         if (newUser) {
-          return res.status(200).json({message:" Successfull USer"});   
+          return res.status(201).json({message:" Successfull USer"});   
         }
     } catch (error) {
         console.error(error);
