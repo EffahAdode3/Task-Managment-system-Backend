@@ -65,23 +65,24 @@ const todoList = async (req, res) =>{
 
 const getAllToDoList = async (req, res ) => {
     try {
-      console.log(req.Client_id)
+      console.log( req.Client_id)
       let  allToDoList = [];
-      const user = await Client.findByPk(req.Client_id);
+      const user = await Client.findByPk( req.Client_id);
       allToDoList = await Todo.findAll({
         where:{ 
-          Client_id: user.id
+          client_id: user.id
         }
       });
       if( allToDoList. length === 0 ){
         return res. status(409).json({
           message: 'No TO Do List found'
         })
-      }
+      }else{
       return res.status(200).json({
         message: "Success",
         allToDoList
       });
+    }
         } catch (error) {
           console.error(error);
           return res.status(500).json({ message: "Server error" });
