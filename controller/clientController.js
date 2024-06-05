@@ -70,7 +70,7 @@ const getAllToDoList = async (req, res ) => {
       const user = await Client.findByPk( req.Client_id);
       allToDoList = await Todo.findAll({
         where:{ 
-          client_id: user.id
+          client_id: user.client_id
         }
       });
       if( allToDoList. length === 0 ){
