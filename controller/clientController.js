@@ -44,12 +44,13 @@ const Login = async(req, res) =>{
 const todoList = async (req, res) =>{
     try {
         const client_id =   req.Client_id;
+        console.log(client_id);
         const {newTodo, category, deadline,  } = req.body;
         const todoData = {
             newTodo,
             category,
             deadline,
-            client_id:client_id
+            client_id
             };
             const createtodo = await Todo.create(todoData);
             if(createtodo){
