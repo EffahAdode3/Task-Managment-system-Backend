@@ -21,11 +21,7 @@ const SignUpClient = async (req, res) => {
             password: hashedPassword,
         });
         if (newUser) {
-            // Generate a JWT
-            const payload = { userId: newUser.id };
-            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
-            req.token = token
-            return res.status(201).json({ message: 'success', token });
+          return res.status(200).json({message:" Successfull USer"});   
         }
     } catch (error) {
         console.error(error);
@@ -36,14 +32,15 @@ const SignUpClient = async (req, res) => {
 //Login
 const Login = async(req, res) =>{
     const token = req.token;
-    if(token){
-      return res.status(200).json({message:" Successfull login",token});    
+    const User = req.body;
+    if(User){
+      return res.status(200).json({message:" Successfull login",token, user:req.user});    
     }
 };
 // create To do  list
 const todoList = async (req, res) =>{
     try {
-        const client_id =   req.Client_id;
+        const client_id =  req.Client_id;
         console.log(client_id);
         const {newTodo, category, deadline,  } = req.body;
         const todoData = {
