@@ -74,7 +74,10 @@ const getAllToDoList = async (req, res) => {
       where: { 
         client_id: user.id 
       },
-      order: [['deadline', 'ASC', 'category']] // Sort by deadline in ascending order
+      order: [
+        ['deadline', 'ASC'], // Sort by deadline in ascending order
+        ['category', 'ASC']  // Then sort by category in ascending order
+      ]// Sort by deadline in ascending order
     });
     if (allToDoList.length === 0) {
       return res.status(409).json({
