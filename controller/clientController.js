@@ -74,9 +74,9 @@ const getAllToDoList = async (req, res) => {
 
       where: { 
         client_id: user.id ,
-        deadline: {
-          [Op.gte]: currentDate // Filter deadlines greater than or equal to current date
-        }
+        // deadline: {
+        //   [Op.gte]: currentDate 
+        // }
       },
       order: [
         ['deadline', 'ASC'],  // Sort by deadline in ascending order
