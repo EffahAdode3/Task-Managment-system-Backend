@@ -42,12 +42,13 @@ const TodoList = sequelize.define(
 );
 
 TodoList.beforeCreate((todo) => {
-  todo.formattedCreatedAt = formatDate(new Date(todo.createdAt));
-  todo.formattedUpdatedAt = formatDate(new Date(todo.updatedAt));
+  const now = new Date();
+  todo.formattedCreatedAt = formatDate(now);
+  todo.formattedUpdatedAt = formatDate(now);
 });
 
 TodoList.beforeUpdate((todo) => {
-  todo.formattedUpdatedAt = formatDate(new Date(todo.updatedAt));
+  todo.formattedUpdatedAt = formatDate(new Date());
 });
 
 TodoList.belongsTo(Client, { foreignKey: 'client_id' });
