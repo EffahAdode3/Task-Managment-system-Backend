@@ -1,7 +1,7 @@
 import Client from "../model/clientModel.js";
 import Todo from '../model/TodoList.js'
 import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+import { Op } from "sequelize";
 import dotenv from 'dotenv';
 dotenv.config();
 const JWT_SECRET = process.env.ACCESS_TOKEN;
@@ -71,7 +71,7 @@ const getAllToDoList = async (req, res) => {
     }
     const currentDate = new Date();
     allToDoList = await Todo.findAll({
-      // attributes: ['newTodo', 'category', 'deadline', 'client_id'],
+
       where: { 
         client_id: user.id ,
         deadline: {
