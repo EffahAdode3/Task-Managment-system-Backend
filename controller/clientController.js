@@ -76,7 +76,7 @@ const getAllToDoList = async (req, res) => {
       },
       order: [
         ['deadline', 'DESC'],  // Sort by deadline in ascending order
-        ['category', 'DESC']  // Then sort by category in ascending order
+        // ['category', 'DESC']  // Then sort by category in ascending order
       ]// Sort by deadline in ascending order
     });
     if (allToDoList.length === 0) {
