@@ -70,6 +70,7 @@ const getAllToDoList = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     allToDoList = await Todo.findAll({
+      attributes: ['newTodo', 'category', 'deadline', 'client_id'],
       where: { 
         client_id: user.id 
       },
