@@ -72,7 +72,7 @@ const getAllToDoList = async (req, res) => {
     allToDoList = await Todo.findAll({
       // attributes: ['newTodo', 'category', 'deadline', 'client_id'],
       where: { 
-        client_id: user.id 
+        client_id: user.id ,
       },
       order: [
         ['deadline', 'DESC'],  // Sort by deadline in ascending order

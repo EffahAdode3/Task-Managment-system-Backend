@@ -26,7 +26,7 @@ const TodoList = sequelize.define(
       allowNull: false,
     },
     deadline: {
-      type: DataType.STRING,
+      type: DataType.DATE,
       allowNull: false,
     },
     formattedCreatedAt: {
