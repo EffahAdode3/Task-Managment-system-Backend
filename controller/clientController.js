@@ -69,10 +69,14 @@ const getAllToDoList = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    const currentDate = new Date();
     allToDoList = await Todo.findAll({
       // attributes: ['newTodo', 'category', 'deadline', 'client_id'],
       where: { 
         client_id: user.id ,
+        deadline: {
+          [Op.gte]: currentDate // Filter deadlines greater than or equal to current date
+        }
       },
       order: [
         ['deadline', 'ASC'],  // Sort by deadline in ascending order
