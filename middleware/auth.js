@@ -51,10 +51,10 @@ const tokenVerification = async (req, res, next) => {
         return res.status(401).json({ message: "Invalid token format" });
       }
   
-      // const currentTime = Math.floor(Date.now() / 1000);
-      // if (decodedToken.payload.exp <= currentTime) {
-      //   return res.status(401).json({ message: "Token has expired" });
-      // }
+      const currentTime = Math.floor(Date.now() / 1000);
+      if (decodedToken.payload.exp <= currentTime) {
+        return res.status(401).json({ message: "Token has expired" });
+      }
   
       const verify = jwt.verify(tokenInHeader, secret);
       req.Client_id = verify.id;
