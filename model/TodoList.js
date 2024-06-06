@@ -29,17 +29,26 @@ const TodoList = sequelize.define(
       type: DataType.STRING,
       allowNull: false,
     },
+    formattedCreatedAt: {
+      type: DataType.STRING,
+      allowNull: true,
+    },
+    formattedUpdatedAt: {
+      type: DataType.STRING,
+      allowNull: true,
+    },
   },
-  { timestamps: true }
+  // { timestamps: true }
 );
 
 TodoList.beforeCreate((todo) => {
-  todo.createdAt = formatDate(new Date(todo.createdAt));
-  todo.updatedAt = formatDate(new Date(todo.updatedAt));
+  const now = new Date();
+  todo.formattedCreatedAt = formatDate(now);
+  todo.formattedUpdatedAt = formatDate(now);
 });
 
 TodoList.beforeUpdate((todo) => {
-  todo.updatedAt = formatDate(new Date(todo.updatedAt));
+  todo.formattedUpdatedAt = formatDate(new Date());
 });
 
 TodoList.belongsTo(Client, { foreignKey: 'client_id' });
