@@ -42,16 +42,18 @@ const tokenVerification = async (req, res, next) => {
     try {
       const tokenInHeader =  req.headers.authorization?.split(' ')[1];
       if (!tokenInHeader) {
+        localStorage.clear();
         return res.status(401).json({ message: "No token provided" });
       }
       const decodedToken = jwt.decode(tokenInHeader, { complete: true });
       if (!decodedToken || !decodedToken.payload) {
-        
+              localStorage.clear();
         return res.status(401).json({ message: "Invalid token format" });
       }
   
       const currentTime = Math.floor(Date.now() / 1000);
       if (decodedToken.payload.exp <= currentTime) {
+        localStorage.clear();
         return res.status(401).json({ message: "Token has expired" });
       }
   
