@@ -26,7 +26,7 @@ const generateToken = async(req, res, next) =>{
     email:findClient.email,
     userName:findClient.userName,   
  }
-const ClientToken = jwt.sign(generatetoken, secret, { expiresIn: "1h" });
+const ClientToken = jwt.sign(generatetoken, secret, { expiresIn: "1m" });
  req.token = ClientToken
  req.user = findClient;
 
