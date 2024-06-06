@@ -61,30 +61,35 @@ const todoList = async (req, res) =>{
 
 // Get all To do list
 
-const getAllToDoList = async (req, res ) => {
-    try {
-      console.log( req.Client_id)
-      let  allToDoList = [];
-      const user = await Client.findByPk( req.Client_id);
-      allToDoList = await Todo.findAll({
-        where:{ 
-          client_id: user.id
-        }
+const getAllToDoList = async (req, res) => {
+  try {
+    console.log(req.Client_id);
+    let allToDoList = [];
+    const user = await Client.findByPk(req.Client_id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    allToDoList = await TodoList.findAll({
+      where: { 
+        client_id: user.id 
+      },
+      order: [['deadline', 'ASC']] // Sort by deadline in ascending order
+    });
+    if (allToDoList.length === 0) {
+      return res.status(409).json({
+        message: 'No To Do List found'
       });
-      if( allToDoList. length === 0 ){
-        return res. status(409).json({
-          message: 'No TO Do List found'
-        })
-      }else{
+    } else {
       return res.status(200).json({
         message: "Success",
         allToDoList
       });
     }
-        } catch (error) {
-          console.error(error);
-          return res.status(500).json({ message: "Server error" });
-    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server error" });
   }
+}
+
   
 export default {SignUpClient,  Login, todoList, getAllToDoList}
