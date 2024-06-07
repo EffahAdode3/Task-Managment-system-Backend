@@ -100,6 +100,7 @@ const getAllToDoList = async (req, res) => {
 const getToToByCategory = async (req, res )=>{
   try {
     const category = req.query.category;
+    console.log(category)
     const user = await Client.findByPk(req.Client_id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
