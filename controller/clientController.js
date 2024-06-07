@@ -99,7 +99,7 @@ const getAllToDoList = async (req, res) => {
 // Get all by Category
 const getToToByCategory = async (req, res )=>{
   try {
-    const category = req.query.category;
+    const category = req.params.category;
     console.log(category)
     const user = await Client.findByPk(req.Client_id);
     if (!user) {
