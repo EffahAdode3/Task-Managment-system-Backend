@@ -58,9 +58,7 @@ const todoList = async (req, res) =>{
        return res.status(500).json({ message: "Server error",  error});
     }
 }
-
 // Get all To do list
-
 const getAllToDoList = async (req, res) => {
   try {
     console.log(req.Client_id);
@@ -98,6 +96,41 @@ const getAllToDoList = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 }
+// Get all by Category
+const getToToByCategory = async (req, res )=>{
+  try {
+    const category = req.query.category;
+    const user = await Client.findByPk(req.Client_id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    if (!category) {
+      return res.status(400).json({ error: 'Category is required' });
+    }
 
-  
-export default {SignUpClient,  Login, todoList, getAllToDoList}
+    const tasks = await Todo.findAll({
+      where: {
+        client_id: user.id,
+        category: category,
+      },
+      order: [
+        ['deadline', 'ASC'],  
+      ]
+    });
+    if (tasks.length === 0) {
+      return res.status(409).json({
+        message: 'No To Do List found'
+      });
+    } else {
+      return res.status(200).json({
+        message: "Success",
+        tasks 
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ error: 'An error occurred while fetching tasks' });
+  }
+}
+
+export default {SignUpClient,  Login, todoList, getAllToDoList, getToToByCategory}
