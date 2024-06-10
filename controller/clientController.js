@@ -14,7 +14,7 @@ const SignUpClient = async (req, res) => {
         if (existingUser) {
             return res.status(409).json({ message: 'exist' });
         }
-        const hashedPassword = await bcryptjs.hash(password, 10);
+        const hashedPassword = await bcryptjs.hash(password, 8);
         const newUser = await Client.create({
             userName,
             email,
