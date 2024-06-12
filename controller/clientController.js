@@ -28,7 +28,6 @@ const SignUpClient = async (req, res) => {
         return res.status(500).send('Internal Server Error');
     }
 };
-
 //Login
 const Login = async(req, res) =>{
     const token = req.token;
@@ -42,12 +41,13 @@ const todoList = async (req, res) =>{
     try {
         const client_id =  req.Client_id;
         console.log(client_id);
-        const {newTodo, category, deadline,  } = req.body;
+        const {newTodo, category, deadline, statuses, } = req.body;
         const todoData = {
             newTodo,
             category,
             deadline,
-            client_id
+            client_id,
+            statuses,
             };
             const createtodo = await Todo.create(todoData);
             if(createtodo){
@@ -58,6 +58,8 @@ const todoList = async (req, res) =>{
        return res.status(500).json({ message: "Server error",  error});
     }
 }
+
+
 // Get all To do list
 const getAllToDoList = async (req, res) => {
   try {
