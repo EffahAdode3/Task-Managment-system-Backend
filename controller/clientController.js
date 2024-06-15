@@ -148,6 +148,7 @@ const updateStatus = async (req, res) => {
   try {
     const todo = await Todo.findByPk(id);
     console.log(todo);
+    console.log(status);
     if (!todo) {
       return res.status(404).json({ message: 'To-Do id not found' });
     }
