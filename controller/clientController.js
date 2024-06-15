@@ -98,6 +98,8 @@ const getAllToDoList = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 }
+
+
 // Get all by Category
 const getToToByCategory = async (req, res )=>{
   try {
@@ -136,4 +138,25 @@ const getToToByCategory = async (req, res )=>{
   }
 }
 
-export default {SignUpClient,  Login, todoList, getAllToDoList, getToToByCategory}
+
+// update the statues
+
+const updateStatus = async (req, res) => {
+  const { id } = req.params.id;
+  const { status } = req.body;
+
+  try {
+    const todo = await Todo.findByPk(id);
+    if (!todo) {
+      return res.status(404).json({ message: 'To-Do id not found' });
+    }
+
+    todo.statuses = status;
+    await todo.save();
+    res.json({ message: 'Status updated', todo });
+  } catch (error) {
+    console.error('Error updating status:', error);
+    res.status(500).json({ error: 'Error updating status' });
+  }
+};
+export default {SignUpClient,  Login, todoList, getAllToDoList, getToToByCategory, updateStatus}
