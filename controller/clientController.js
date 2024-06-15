@@ -142,7 +142,7 @@ const getToToByCategory = async (req, res )=>{
 // update the statues
 
 const updateStatus = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params.id;
   const { status } = req.body;
 
   try {
