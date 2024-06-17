@@ -11,7 +11,7 @@ const TodoList = sequelize.define(
       allowNull: false,
     },
     newTodo: {
-      type: DataType.STRING,
+      type: DataType.TEXT,
       allowNull: false,
     },
     category: {
