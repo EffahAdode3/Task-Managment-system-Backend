@@ -181,4 +181,25 @@ const updateTodo = async (req, res) => {
   }
 };
 
-export default {SignUpClient,  Login, todoList, getAllToDoList, getToToByCategory, updateStatus, updateTodo}
+
+// delete to do 
+
+const deleteTodo = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const todo = await Todo.findByPk(id);
+
+    if (!todo) {
+      return res.status(404).json({ message: 'To-do item not found' });
+    }
+
+    await todo.destroy();
+
+    res.status(204).json({ message: 'To-do item deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export default {SignUpClient,  Login, todoList, getAllToDoList, getToToByCategory, updateStatus, updateTodo, deleteTodo}

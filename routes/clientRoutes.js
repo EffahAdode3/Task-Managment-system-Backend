@@ -9,4 +9,5 @@ router.get('/getAllToDo', auth.tokenVerification, client.getAllToDoList )
 router.get('/getTOdoByCategory/:category', auth.tokenVerification, client.getToToByCategory)
 router.put('/updateStatus/:id', auth.tokenVerification,  client.updateStatus)
 router.put('/Updateatodo/:id', auth.tokenVerification, client.updateTodo);
+router.delete('/deleteTodo/:id', auth.tokenVerification, client.deleteTodo)
 export default router;
