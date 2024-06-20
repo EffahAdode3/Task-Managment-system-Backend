@@ -163,7 +163,6 @@ const updateStatus = async (req, res) => {
 const updateTodo = async (req, res) => {
     const { id } = req.params;
   const { category, newTodo, deadline, statuses } = req.body;
-
   try {
     const todo = await Todo.findByPk(id);
     console.log(todo);
@@ -171,17 +170,15 @@ const updateTodo = async (req, res) => {
     if (!todo) {
       return res.status(404).json({ message: 'To-do item not found' });
     }
-
     todo.category = category || todo.category;
     todo.newTodo = newTodo || todo.newTodo;
     todo.deadline = deadline || todo.deadline;
     todo.statuses = statuses || todo.statuses;
-
     await todo.save();
-
     res.status(200).json(todo);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 export default {SignUpClient,  Login, todoList, getAllToDoList, getToToByCategory, updateStatus, updateTodo}
