@@ -162,7 +162,7 @@ const updateStatus = async (req, res) => {
 /// update To do
 const updateTodo = async (req, res) => {
     const { id } = req.params;
-  const { category, newTodo, deadline } = req.body;
+  const { category, newTodo, deadline, statuses } = req.body;
 
   try {
     const todo = await Todo.findByPk(id);
