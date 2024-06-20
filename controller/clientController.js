@@ -175,7 +175,7 @@ const updateTodo = async (req, res) => {
     todo.category = category || todo.category;
     todo.newTodo = newTodo || todo.newTodo;
     todo.deadline = deadline || todo.deadline;
-    // todo.statuses = statuses || todo.statuses;
+    todo.statuses = statuses || todo.statuses;
 
     await todo.save();
 
