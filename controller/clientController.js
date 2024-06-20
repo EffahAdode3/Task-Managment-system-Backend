@@ -196,7 +196,7 @@ const deleteTodo = async (req, res) => {
 
     await todo.destroy();
 
-    res.status(204).json({ message: 'To-do item deleted successfully' });
+    // res.status(204).json({ message: 'To-do item deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
