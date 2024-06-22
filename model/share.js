@@ -3,7 +3,7 @@ import DataType from "sequelize";
 import Client from "./clientModel.js";
 import Todolist from "./TodoList.js";
 const Share  = sequelize.define(
-  "Share",
+  "share",
   {
     id: {
       type: DataType.INTEGER,
