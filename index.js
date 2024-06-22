@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 dotenv.config();
 const port = process.env.Port;
-app.use('/', clientRoutes  );
+app.use('/', clientRoutes);
 try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');

@@ -183,7 +183,6 @@ const updateTodo = async (req, res) => {
 
 
 // delete to do 
-
 const deleteTodo = async (req, res) => {
   const { id } = req.params;
 
