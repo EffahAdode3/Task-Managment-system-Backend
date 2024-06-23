@@ -3,6 +3,7 @@ import Todo from '../model/TodoList.js'
 import bcryptjs from "bcryptjs";
 import { Op } from "sequelize";
 import dotenv from 'dotenv';
+import Share from "../model/share.js";
 dotenv.config();
 const JWT_SECRET = process.env.ACCESS_TOKEN;
 
@@ -10,7 +11,7 @@ const JWT_SECRET = process.env.ACCESS_TOKEN;
 const SignUpClient = async (req, res) => {
     try {
         const { userName, email, password } = req.body;
-        const existingUser = await Client.findOne({ where: { email } });
+        const existingUser = await Share.findOne({ where: { email } });
         if (existingUser) {
             return res.status(409).json({ message: 'exist' });
         }
