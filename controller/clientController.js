@@ -215,5 +215,26 @@ const deleteTodo = async (req, res) => {
   }
 };
 
-export default {SignUpClient,  Login, todoList, getAllToDoList, getToToByCategory,
-   updateStatus, updateTodo, deleteTodo, searchEmail}
+// router.post('/todos/:todoId/assign',
+  const assignTodolist =  async (req, res) => {
+  const todoId = req.params.todoId;
+  const emails = req.body.emails;
+console.log(todoId, emails, users, Client_Id, Todolist_Id);
+
+  const users = await Client.findAll({ where: { email: emails } });
+  const Client_Id = users.id
+  const Todolist_Id = await Todo.findByPk(todoId);
+
+  const ShareTodo = await Share.create({
+    Client_Id:Client_Id,
+    Todolist_Id:Todolist_Id,
+    });
+    if (ShareTodo) {
+      return res.status(201).json({message: ShareTodo })
+    }
+  }
+
+
+export default {SignUpClient,  Login, 
+  todoList, getAllToDoList, getToToByCategory,
+   updateStatus, updateTodo, deleteTodo, searchEmail, assignTodolist} 
