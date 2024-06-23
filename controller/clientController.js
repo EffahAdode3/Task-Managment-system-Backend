@@ -206,13 +206,13 @@ const deleteTodo = async (req, res) => {
   const email = req.params.email;
   const users = await Client.findAll({ 
     where: { email: { [Op.like]: `%${email}%` } } });
-  // res.json(users);
-  if (users){
-    return res.status(200).json({
-      message: "Success",
-      users 
-    });
-  }
+  res.json(users);
+  // if (users){
+  //   return res.status(200).json({
+  //     message: "Success",
+  //     users 
+  //   });
+  // }
 };
 
 // router.post('/todos/:todoId/assign',
