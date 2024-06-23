@@ -219,7 +219,7 @@ const deleteTodo = async (req, res) => {
   const assignTodolist =  async (req, res) => {
   const todoId = req.params.todoId;
   const emails = req.body.emails;
-console.log(todoId, emails, users, Client_Id, Todolist_Id);
+// console.log(todoId, emails, users, Client_Id, Todolist_Id);
 
   const users = await Client.findAll({ where: { email: emails } });
   const Client_Id = users.id
