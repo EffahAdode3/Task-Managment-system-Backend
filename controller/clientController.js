@@ -203,6 +203,7 @@ const deleteTodo = async (req, res) => {
 };
 
  const searchEmail =  async (req, res) => {
+  try {
   const email = req.params.email;
   const users = await Client.findAll({ 
     where: { email: { [Op.like]: `%${email}%` } } });
@@ -213,10 +214,15 @@ const deleteTodo = async (req, res) => {
       users 
     });
   }
+} catch (error) {
+  res.status(500).json({ message: error.message });
+}
 };
 
 // router.post('/todos/:todoId/assign',
   const assignTodolist =  async (req, res) => {
+    try {
+      
   const todoId = req.params.todoId;
   const emails = req.body.emails;
 // console.log(todoId, emails, users, Client_Id, Todolist_Id);
@@ -232,6 +238,9 @@ const deleteTodo = async (req, res) => {
     if (ShareTodo) {
       return res.status(201).json({message: ShareTodo })
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
   }
 
 
