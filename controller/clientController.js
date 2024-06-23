@@ -204,14 +204,15 @@ const deleteTodo = async (req, res) => {
 
  const searchEmail =  async (req, res) => {
   const email = req.params.email;
-  const users = await Client.findAll({ where: { email: { [Op.like]: `%${email}%` } } });
-  res.json(users);
-  // if (users){
-  //   return res.status(200).json({
-  //     message: "Success",
-  //     users 
-  //   });
-  // }
+  const users = await Client.findAll({ 
+    where: { email: { [Op.like]: `%${email}%` } } });
+  // res.json(users);
+  if (users){
+    return res.status(200).json({
+      message: "Success",
+      users 
+    });
+  }
 };
 
 export default {SignUpClient,  Login, todoList, getAllToDoList, getToToByCategory,
