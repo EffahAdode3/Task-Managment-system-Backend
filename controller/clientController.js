@@ -203,7 +203,7 @@ const deleteTodo = async (req, res) => {
 };
 
  const searchEmail =  async (req, res) => {
-  const email = req.query.email;
+  const email = req.params.email;
   const users = await Client.findAll({ where: { email: { [Op.like]: `%${email}%` } } });
   res.json(users);
   // if (users){
