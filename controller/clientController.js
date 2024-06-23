@@ -202,4 +202,17 @@ const deleteTodo = async (req, res) => {
   }
 };
 
-export default {SignUpClient,  Login, todoList, getAllToDoList, getToToByCategory, updateStatus, updateTodo, deleteTodo}
+ const searchEmail =  async (req, res) => {
+  const email = req.query.email;
+  const users = await Client.findAll({ where: { email: { [Op.like]: `%${email}%` } } });
+  res.json(users);
+  // if (users){
+  //   return res.status(200).json({
+  //     message: "Success",
+  //     users 
+  //   });
+  // }
+};
+
+export default {SignUpClient,  Login, todoList, getAllToDoList, getToToByCategory,
+   updateStatus, updateTodo, deleteTodo, searchEmail}

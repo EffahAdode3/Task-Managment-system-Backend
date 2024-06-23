@@ -10,4 +10,5 @@ router.get('/getTOdoByCategory/:category', auth.tokenVerification, client.getToT
 router.put('/updateStatus/:id', auth.tokenVerification,  client.updateStatus)
 router.put('/Updateatodo/:id', auth.tokenVerification, client.updateTodo);
 router.delete('/deleteTodo/:id', auth.tokenVerification, client.deleteTodo)
+router.delete('/getClientEmail/:email', auth.tokenVerification, client.searchEmail)
 export default router;
