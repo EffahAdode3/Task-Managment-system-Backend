@@ -221,8 +221,7 @@ const deleteTodo = async (req, res) => {
 
 // router.post('/todos/:todoId/assign',
   const assignTodolist =  async (req, res) => {
-    try {
-      
+    try {   
   const todoId = req.params.todoId;
   const emails = req.body.emails;
 // console.log(todoId, emails, users, Client_Id, Todolist_Id);
