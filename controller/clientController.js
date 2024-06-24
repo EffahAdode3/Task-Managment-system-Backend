@@ -248,6 +248,44 @@ const deleteTodo = async (req, res) => {
 //   }
 //   }
 
+// const assignTodolist = async (req, res) => {
+//   try {
+//     const todoId = req.params.todoId;
+//     const emails = req.body.emails;
+//     console.log(todoId, "todoID");
+//     console.log(emails, "emails");
+
+//     const users = await Client.findAll({ where: { email: emails } });
+//     const Client_Ids = users.map(user => user.id); // Extract IDs from users array
+
+//     const TodolistId = await Todo.findByPk(todoId);
+//     const Todolist_Id = TodolistId ? TodolistId.id : null; // Extract ID from TodolistId object
+
+//     if (!Todolist_Id) {
+//       return res.status(404).json({ message: 'Todo not found' });
+//     }
+
+//     console.log(Client_Ids, "client Ids");
+//     console.log(Todolist_Id, "Todolist Id");
+
+//     // Assuming you want to create ShareTodo for each Client_Id with the single Todolist_Id
+//     const shareTodos = await Promise.all(
+//       Client_Ids.map(Client_Id => 
+//         Share.create({
+//           Client_Id: Client_Id,
+//           Todolist_Id: Todolist_Id,
+//         })
+//       )
+//     );
+
+//     if (shareTodos.length > 0) {
+//       return res.status(201).json({ message: shareTodos });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ message: error.message});
+//   }
+// };
+
 const assignTodolist = async (req, res) => {
   try {
     const todoId = req.params.todoId;
@@ -282,7 +320,17 @@ const assignTodolist = async (req, res) => {
       return res.status(201).json({ message: shareTodos });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error Assign", });
+    if (error.errors && error.errors.length > 0) {
+      // Log validation errors
+      error.errors.forEach(err => {
+        console.error(err.message, err.path, err.value);
+      });
+      return res.status(400).json({ message: 'Validation error', errors: error.errors });
+    } else {
+      // Log generic error message
+      console.error('Error:', error.message);
+      return res.status(500).json({ message: error.message });
+    }
   }
 };
 
