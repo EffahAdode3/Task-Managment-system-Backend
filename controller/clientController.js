@@ -224,6 +224,8 @@ const deleteTodo = async (req, res) => {
     try {   
   const todoId = req.params.todoId;
   const emails = req.body.emails;
+  console.log(todoId, "todoID");
+  console.log(emails, "emails");
 // console.log(todoId, emails, users, Client_Id, Todolist_Id);
 
   const users = await Client.findAll({ where: { email: emails } });
