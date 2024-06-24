@@ -282,7 +282,7 @@ const assignTodolist = async (req, res) => {
       return res.status(201).json({ message: shareTodos });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Error Assign", });
   }
 };
 
