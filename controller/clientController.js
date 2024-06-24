@@ -215,7 +215,8 @@ const deleteTodo = async (req, res) => {
     });
   }
 } catch (error) {
-  res.status(500).json({ message: error.message });
+  console.error('Error:', error.message);
+  return res.status(500).json({ message: error.message });
 }
 };
 
@@ -338,4 +339,5 @@ const assignTodolist = async (req, res) => {
 
 export default {SignUpClient,  Login, 
   todoList, getAllToDoList, getToToByCategory,
-   updateStatus, updateTodo, deleteTodo, searchEmail, assignTodolist} 
+   updateStatus, updateTodo, 
+   deleteTodo, searchEmail, assignTodolist} 
