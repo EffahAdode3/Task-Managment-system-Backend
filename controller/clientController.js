@@ -230,8 +230,8 @@ const deleteTodo = async (req, res) => {
 
   const users = await Client.findAll({ where: { email: emails } });
   const Client_Id = users.id
-  const Todolist_Id = await Todo.findOne({where:{id:todoId}})
-
+  const TodolistId = await Todo.findAll({where:{id:todoId}})
+    const Todolist_Id = TodolistId.id
   const ShareTodo = await Share.create({
     Client_Id:Client_Id,
     Todolist_Id:Todolist_Id,
