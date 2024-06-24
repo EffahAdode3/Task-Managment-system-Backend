@@ -11,5 +11,5 @@ router.put('/updateStatus/:id', auth.tokenVerification,  client.updateStatus)
 router.put('/Updateatodo/:id', auth.tokenVerification, client.updateTodo);
 router.delete('/deleteTodo/:id', auth.tokenVerification, client.deleteTodo)
 router.get('/getClientEmail/:email', auth.tokenVerification, client.searchEmail)
-router.post('/assign/:todo_Id', auth.tokenVerification, client.assignTodolist)
+router.post('/assign/:todoId', auth.tokenVerification, client.assignTodolist)
 export default router;
