@@ -61,26 +61,37 @@ const todoList = async (req, res) =>{
 }
 
 
+
+
 // Get all To do list
 const getAllToDoList = async (req, res) => {
   try {
-    console.log(req.Client_id);
+    const clientId = req.Client_id;
     let allToDoList = [];
-    const user = await Client.findByPk(req.Client_id);
+
+    const user = await Client.findByPk(clientId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const currentDate = new Date();
-    allToDoList = await Todo.findAll({
 
-      where: { 
-        client_id: user.id ,
-      },
-      include: Share,
-      order: [
-        ['deadline', 'ASC'],  
-      ]
+    // Fetch to-dos created by the user
+    const createdToDos = await Todo.findAll({
+      where: { client_id: clientId },
+      order: [['deadline', 'ASC']]
     });
+
+    // Fetch to-dos shared with the user
+    const sharedToDos = await Share.findAll({
+      where: { Client_Id: clientId },
+      include: [{
+        model: Todo,
+        order: [['deadline', 'ASC']]
+      }]
+    });
+
+    // Combine both lists
+    allToDoList = createdToDos.concat(sharedToDos.map(share => share.TodoList));
+
     if (allToDoList.length === 0) {
       return res.status(409).json({
         message: 'No To Do List found'
@@ -95,7 +106,41 @@ const getAllToDoList = async (req, res) => {
     console.error(error);
     return res.status(500).json({ message: "Server error" });
   }
-}
+};
+
+// const getAllToDoList = async (req, res) => {
+//   try {
+//     console.log(req.Client_id);
+//     let allToDoList = [];
+//     const user = await Client.findByPk(req.Client_id);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+//     const currentDate = new Date();
+//     allToDoList = await Todo.findAll({
+
+//       where: { 
+//         client_id: user.id ,
+//       },
+//       order: [
+//         ['deadline', 'ASC'],  
+//       ]
+//     });
+//     if (allToDoList.length === 0) {
+//       return res.status(409).json({
+//         message: 'No To Do List found'
+//       });
+//     } else {
+//       return res.status(200).json({
+//         message: "Success",
+//         allToDoList
+//       });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ message: "Server error" });
+//   }
+// }
 
 
 // Get all by Category
@@ -218,42 +263,87 @@ const deleteTodo = async (req, res) => {
 };
 
 /// Assign TO do List
+// const assignTodolist = async (req, res) => {
+//   try {
+//     const Created_By =  req.Client_id;
+//     const todoId = req.params.todoId;
+//     const emails = req.body.emails;
+//     console.log(Created_By, "created_ID");
+//     console.log(todoId, "todoID");
+//     console.log(emails, "emails");
+
+//     const users = await Client.findAll({ where: { email: emails } });
+//     const Client_Ids = users.map(user => user.id); // Extract IDs from users array
+
+//     const TodolistId = await Todo.findByPk(todoId);
+//     const Todolist_Id = TodolistId ? TodolistId.id : null; // Extract ID from TodolistId object
+
+//     if (!Todolist_Id) {
+//       return res.status(404).json({ message: 'Todo not found' });
+//     }
+
+//     console.log(Client_Ids, "client Ids");
+//     console.log(Todolist_Id, "Todolist Id");
+
+//     // Assuming you want to create ShareTodo for each Client_Id with the single Todolist_Id
+//     const shareTodos = await Promise.all(
+//       Client_Ids.map(Client_Id => 
+//         Share.create({
+//           Client_Id: Client_Id,
+//           Todolist_Id: Todolist_Id,
+//           Created_By: Created_By,
+       
+//         })
+//       )
+//     );
+
+//     if (shareTodos.length > 0) {
+//       return res.status(201).json({ message: shareTodos });
+//     }
+//   } catch (error) {
+//     if (error.errors && error.errors.length > 0) {
+//       // Log validation errors
+//       error.errors.forEach(err => {
+//         console.error(err.message, err.path, err.value);
+//       });
+//       return res.status(400).json({ message: 'Validation error', errors: error.errors });
+//     } else {
+//       // Log generic error message
+//       console.error('Error:', error.message);
+//       return res.status(500).json({ message: error.message });
+//     }
+//   }
+// };
+
 const assignTodolist = async (req, res) => {
   try {
-    const Created_By =  req.Client_id;
+    const createdBy = req.Client_id;
     const todoId = req.params.todoId;
     const emails = req.body.emails;
-    console.log(Created_By, "created_ID");
-    console.log(todoId, "todoID");
-    console.log(emails, "emails");
 
+    // Find users by email
     const users = await Client.findAll({ where: { email: emails } });
-    const Client_Ids = users.map(user => user.id); // Extract IDs from users array
+    const clientIds = users.map(user => user.id);
 
-    const TodolistId = await Todo.findByPk(todoId);
-    const Todolist_Id = TodolistId ? TodolistId.id : null; // Extract ID from TodolistId object
-
-    if (!Todolist_Id) {
+    // Find the to-do list by ID
+    const todoList = await Todo.findByPk(todoId);
+    if (!todoList) {
       return res.status(404).json({ message: 'Todo not found' });
     }
 
-    console.log(Client_Ids, "client Ids");
-    console.log(Todolist_Id, "Todolist Id");
-
-    // Assuming you want to create ShareTodo for each Client_Id with the single Todolist_Id
+    // Create share records for each user
     const shareTodos = await Promise.all(
-      Client_Ids.map(Client_Id => 
+      clientIds.map(clientId => 
         Share.create({
-          Client_Id: Client_Id,
-          Todolist_Id: Todolist_Id,
-          Created_By: Created_By,
-       
+          Client_Id: clientId,
+          Todolist_Id: todoList.id,
+          Created_By: createdBy,
         })
       )
     );
 
     if (shareTodos.length > 0) {
-      return res.status(201).json({ message: shareTodos });
+      return res.status(201).json({ message: "To-Do list shared successfully", shareTodos });
     }
   } catch (error) {
     if (error.errors && error.errors.length > 0) {
@@ -269,6 +359,7 @@ const assignTodolist = async (req, res) => {
     }
   }
 };
+
 
 export default {SignUpClient,  Login, 
   todoList, getAllToDoList, getToToByCategory,
