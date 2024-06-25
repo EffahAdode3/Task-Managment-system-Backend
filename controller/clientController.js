@@ -76,7 +76,7 @@ const getAllToDoList = async (req, res) => {
       where: { 
         client_id: user.id ,
       },
-      include: Todo,
+      include: Client,
       order: [
         ['deadline', 'ASC'],  // Sort by deadline in ascending order
         // ['category', 'DESC']  // Then sort by category in ascending order
