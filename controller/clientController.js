@@ -248,7 +248,7 @@ const assignTodolist = async (req, res) => {
           Client_Id: Client_Id,
           Todolist_Id: Todolist_Id,
           Created_By: Created_By,
-          TodoList_Id:Todolist_Id
+       
         })
       )
     );
