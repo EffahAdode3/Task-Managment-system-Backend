@@ -15,7 +15,11 @@ const Share  = sequelize.define(
   },
   { timestamps: true }
 );
+
 Client.belongsToMany(Todolist, { through: Share, foreignKey: 'Client_Id' });
 Todolist.belongsToMany(Client, { through: Share, foreignKey: 'Todolist_Id' });
+
+Share.belongsTo(Client, { foreignKey: 'Created_By' });
+Client.hasMany(Share, { foreignKey: 'Created_By' });
 
 export default Share;

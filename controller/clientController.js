@@ -224,8 +224,10 @@ const deleteTodo = async (req, res) => {
 /// Assign TO do List
 const assignTodolist = async (req, res) => {
   try {
+    const Created_By =  req.Client_id;
     const todoId = req.params.todoId;
     const emails = req.body.emails;
+    console.log(Created_By, "created_ID");
     console.log(todoId, "todoID");
     console.log(emails, "emails");
 
@@ -248,6 +250,7 @@ const assignTodolist = async (req, res) => {
         Share.create({
           Client_Id: Client_Id,
           Todolist_Id: Todolist_Id,
+          Created_By: Created_By
         })
       )
     );
