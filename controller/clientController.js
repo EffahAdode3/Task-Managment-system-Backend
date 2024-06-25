@@ -336,8 +336,8 @@ const assignTodolist = async (req, res) => {
       clientIds.map(clientId => 
         Share.create({
           Client_Id: clientId,
-          // Todolist_Id: todoList.id,
-          TodoListId: todoList.id,
+          Todolist_Id: todoList.id,
+          // TodoListId: todoList.id,
           Created_By: createdBy,
         })
       )
