@@ -71,12 +71,12 @@ const getAllToDoList = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     const currentDate = new Date();
-    allToDoList = await Todo.findAll({
+    allToDoList = await Share.findAll({
 
       where: { 
         client_id: user.id ,
       },
-      include: Share,
+      include: Todo,
       order: [
         ['deadline', 'ASC'],  // Sort by deadline in ascending order
         // ['category', 'DESC']  // Then sort by category in ascending order
