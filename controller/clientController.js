@@ -1,5 +1,5 @@
 import Client from "../model/clientModel.js";
-import Todo from '../model/TodoList.js'
+import Todolist from "../model/TodoList.js";
 import bcryptjs from "bcryptjs";
 import { Op } from "sequelize";
 import dotenv from 'dotenv';
@@ -50,7 +50,7 @@ const todoList = async (req, res) =>{
             client_id,
             statuses,
             };
-            const createtodo = await Todo.create(todoData);
+            const createtodo = await Todolist.create(todoData);
             if(createtodo){
                 return res.status(201).json({message: "Todo created successfully" });
             }
@@ -75,7 +75,7 @@ const getAllToDoList = async (req, res) => {
     }
 
     // Fetch to-dos created by the user
-    const createdToDos = await Todo.findAll({
+    const createdToDos = await Todolist.findAll({
       where: { client_id: clientId },
       order: [['deadline', 'ASC']]
     });
@@ -84,13 +84,13 @@ const getAllToDoList = async (req, res) => {
     const sharedToDos = await Share.findAll({
       where: { Client_Id: clientId },
       include: [{
-        model: Todo,
+        model: Todolist,
         order: [['deadline', 'ASC']]
       }]
     });
 
     // Combine both lists
-    allToDoList = createdToDos.concat(sharedToDos.map(share => share.TodoList));
+    allToDoList = createdToDos.concat(sharedToDos.map(share => share.Todolist));
 
     if (allToDoList.length === 0) {
       return res.status(409).json({
@@ -156,7 +156,7 @@ const getToToByCategory = async (req, res )=>{
       return res.status(400).json({ error: 'Category is required' });
     }
 
-    const tasks = await Todo.findAll({
+    const tasks = await Todolist.findAll({
       where: {
         client_id: user.id,
         category: category,
@@ -187,7 +187,7 @@ const updateStatus = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
   try {
-    const todo = await Todo.findByPk(id);
+    const todo = await Todolist.findByPk(id);
     console.log(todo);
     console.log(status);
     if (!todo) {
@@ -207,7 +207,7 @@ const updateTodo = async (req, res) => {
     const { id } = req.params;
   const { category, newTodo, deadline, statuses } = req.body;
   try {
-    const todo = await Todo.findByPk(id);
+    const todo = await Todolist.findByPk(id);
     console.log(todo);
     console.log(category, newTodo, deadline, statuses );
     if (!todo) {
@@ -230,7 +230,7 @@ const deleteTodo = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const todo = await Todo.findByPk(id);
+    const todo = await Todolist.findByPk(id);
 
     if (!todo) {
       return res.status(404).json({ message: 'To-do item not found' });
@@ -326,7 +326,7 @@ const assignTodolist = async (req, res) => {
     const clientIds = users.map(user => user.id);
 
     // Find the to-do list by ID
-    const todoList = await Todo.findByPk(todoId);
+    const todoList = await Todolist.findByPk(todoId);
     if (!todoList) {
       return res.status(404).json({ message: 'Todo not found' });
     }
