@@ -71,15 +71,15 @@ const getAllToDoList = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     const currentDate = new Date();
-    allToDoList = await Share.findAll({
+    allToDoList = await Todo.findAll({
 
       where: { 
         client_id: user.id ,
       },
-      include: Client,
-      // order: [
-      //   ['deadline', 'ASC'],  
-      // ]
+      include: Share,
+      order: [
+        ['deadline', 'ASC'],  
+      ]
     });
     if (allToDoList.length === 0) {
       return res.status(409).json({
@@ -247,7 +247,8 @@ const assignTodolist = async (req, res) => {
         Share.create({
           Client_Id: Client_Id,
           Todolist_Id: Todolist_Id,
-          Created_By: Created_By
+          Created_By: Created_By,
+          TodoList_Id:Todolist_Id
         })
       )
     );
