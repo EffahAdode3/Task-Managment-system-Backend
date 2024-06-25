@@ -217,7 +217,6 @@ const deleteTodo = async (req, res) => {
 }
 };
 
-
 /// Assign TO do List
 const assignTodolist = async (req, res) => {
   try {
@@ -270,8 +269,6 @@ const assignTodolist = async (req, res) => {
     }
   }
 };
-
-
 
 export default {SignUpClient,  Login, 
   todoList, getAllToDoList, getToToByCategory,
