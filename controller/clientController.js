@@ -76,7 +76,7 @@ const getAllToDoList = async (req, res) => {
       where: { 
         client_id: user.id ,
       },
-      // include: Share,
+      include: Share,
       order: [
         ['deadline', 'ASC'],  
       ]
