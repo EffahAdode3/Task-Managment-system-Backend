@@ -84,8 +84,7 @@ const getAllToDoList = async (req, res) => {
     const sharedToDos = await Share.findAll({
       where: { Client_Id: clientId },
       include: [{
-        include: [{ model: Todolist }],
-        // model: Todolist,
+        model: Todolist,
         order: [['deadline', 'ASC']]
       }]
     });
