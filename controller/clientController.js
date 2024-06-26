@@ -64,6 +64,51 @@ const todoList = async (req, res) =>{
 
 
 // Get all To do list
+// const getAllToDoList = async (req, res) => {
+//   try {
+//     const clientId = req.Client_id;
+//     let allToDoList = [];
+
+//     const user = await Client.findByPk(clientId);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // Fetch to-dos created by the user
+//     allToDoList = await Todolist.findAll({
+//       where: { client_id: clientId },
+//       order: [['deadline', 'ASC']]
+//     });
+
+//     // Fetch to-dos shared with the user
+//   allToDoList = await Share.findAll({
+//       where: { Client_Id: clientId },
+//       include: [{
+//         model: Todolist,
+//         as: 'Todolist',  // Specify the alias here
+//         order: [['deadline', 'ASC']]
+//       }]
+//     });
+
+//     // Combine both lists
+//     // allToDoList = createdToDos.concat(sharedToDos.map(share => share.Todolist));
+
+//     if (allToDoList.length === 0) {
+//       return res.status(409).json({
+//         message: 'No To Do List found'
+//       });
+//     } else {
+//       return res.status(200).json({
+//         message: "Success",
+//         allToDoList
+//       });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ message: "Server error" });
+//   }
+// };
+
 const getAllToDoList = async (req, res) => {
   try {
     const clientId = req.Client_id;
@@ -75,23 +120,28 @@ const getAllToDoList = async (req, res) => {
     }
 
     // Fetch to-dos created by the user
-    allToDoList = await Todolist.findAll({
+    const createdToDos = await Todolist.findAll({
       where: { client_id: clientId },
       order: [['deadline', 'ASC']]
     });
 
     // Fetch to-dos shared with the user
-  // allToDoList = await Share.findAll({
-  //     where: { Client_Id: clientId },
-  //     include: [{
-  //       model: Todolist,
-  //       as: 'Todolist',  // Specify the alias here
-  //       order: [['deadline', 'ASC']]
-  //     }]
-  //   });
+    const sharedToDos = await Share.findAll({
+      where: { Client_Id: clientId },
+      include: [{
+        model: Todolist,
+        as: 'Todolist'
+      }]
+    });
 
-    // Combine both lists
-    // allToDoList = createdToDos.concat(sharedToDos.map(share => share.Todolist));
+    // Combine created and shared to-do lists
+    allToDoList = [
+      ...createdToDos,
+      ...sharedToDos.map(share => share.Todolist)
+    ];
+
+    // Sort the combined list by deadline
+    allToDoList.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
     if (allToDoList.length === 0) {
       return res.status(409).json({
@@ -108,6 +158,7 @@ const getAllToDoList = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // const getAllToDoList = async (req, res) => {
 //   try {
