@@ -75,13 +75,13 @@ const getAllToDoList = async (req, res) => {
     }
 
     // Fetch to-dos created by the user
-    // const createdToDos = await Todolist.findAll({
-    //   where: { client_id: clientId },
-    //   order: [['deadline', 'ASC']]
-    // });
+    const createdToDos = await Todolist.findAll({
+      where: { client_id: clientId },
+      order: [['deadline', 'ASC']]
+    });
 
     // Fetch to-dos shared with the user
-    allToDoList = await Share.findAll({
+    const sharedToDos = await Share.findAll({
       where: { Client_Id: clientId },
       include: [{
         model: Todolist,
@@ -90,7 +90,7 @@ const getAllToDoList = async (req, res) => {
     });
 
     // Combine both lists
-    // allToDoList = createdToDos.concat(sharedToDos.map(share => share.Todolist));
+    allToDoList = createdToDos.concat(sharedToDos.map(share => share.Todolist));
 
     if (allToDoList.length === 0) {
       return res.status(409).json({
