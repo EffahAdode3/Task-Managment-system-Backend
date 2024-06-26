@@ -112,15 +112,21 @@ const Share = sequelize.define("Share", {
 Share.belongsTo(Client, { as: 'Client', foreignKey: 'Share_With_Client_Id' });
 Share.belongsTo(Todolist, { as: 'Todolist', foreignKey: 'Todolist_Id' });
 
+
+
 Client.hasMany(Share, { as: 'Shares', foreignKey: 'Share_With_Client_Id' });
 Todolist.hasMany(Share, { as: 'Shares', foreignKey: 'Todolist_Id' });
 
 Share.belongsTo(Client, { as: 'Creator', foreignKey: 'Created_By' });
 Client.hasMany(Share, { as: 'CreatedShares', foreignKey: 'Created_By' });
 
-Todolist.belongsTo(Client, { as: 'Owner', foreignKey: 'client_Id_As_Foreignkey' });
+Todolist.belongsTo(Client, { foreignKey: 'client_Id_As_Foreignkey',  as: 'Owner', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+
 Client.hasMany(Todolist, { as: 'TodoLists', foreignKey: 'client_Id_As_Foreignkey' });
 
 export default Share;
+
+
+
 
 
