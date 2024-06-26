@@ -127,7 +127,7 @@ const getAllToDoList = async (req, res) => {
 
     // Fetch to-dos shared with the user
     const sharedToDos = await Share.findAll({
-      where: { Client_Id: clientId },
+      where: {Share_With_Client_Id: clientId },
       include: [{
         model: Todolist,
         as: 'Todolist'
