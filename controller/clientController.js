@@ -47,7 +47,7 @@ const todoList = async (req, res) =>{
             newTodo,
             category,
             deadline,
-            client_id,
+            client_Id_As_Foreignkey,
             statuses,
             };
             const createtodo = await Todolist.create(todoData);
