@@ -40,8 +40,8 @@ const Login = async(req, res) =>{
 // create To do  list
 const todoList = async (req, res) =>{
     try {
-        const client_id =  req.Client_id;
-        console.log(client_id);
+        const client_Id_As_Foreignkey =  req.Client_id;
+        console.log(client_Id_As_Foreignkey);
         const {newTodo, category, deadline, statuses, } = req.body;
         const todoData = {
             newTodo,
