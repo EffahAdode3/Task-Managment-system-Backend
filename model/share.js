@@ -82,7 +82,7 @@ const Share = sequelize.define("Share", {
     primaryKey: true,
     allowNull: false,
   },
-  Client_Id: {
+  Share_With_Client_Id: {
     type: DataType.UUID,
     allowNull: false,
     references: {
