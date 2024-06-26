@@ -121,7 +121,7 @@ const getAllToDoList = async (req, res) => {
 
     // Fetch to-dos created by the user
     const createdToDos = await Todolist.findAll({
-      where: { client_id: clientId },
+      where: { client_Id_As_Foreignkey: clientId },
       order: [['deadline', 'ASC']]
     });
 
