@@ -109,10 +109,10 @@ const Share = sequelize.define("Share", {
 }, { timestamps: true });
 
 // Define associations
-Share.belongsTo(Client, { as: 'Client', foreignKey: 'Client_Id' });
+Share.belongsTo(Client, { as: 'Client', foreignKey: 'Share_With_Client_Id' });
 Share.belongsTo(Todolist, { as: 'Todolist', foreignKey: 'Todolist_Id' });
 
-Client.hasMany(Share, { as: 'Shares', foreignKey: 'Client_Id' });
+Client.hasMany(Share, { as: 'Shares', foreignKey: 'Share_With_Client_Id' });
 Todolist.hasMany(Share, { as: 'Shares', foreignKey: 'Todolist_Id' });
 
 Share.belongsTo(Client, { as: 'Creator', foreignKey: 'Created_By' });

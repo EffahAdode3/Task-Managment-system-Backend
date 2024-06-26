@@ -387,7 +387,7 @@ const assignTodolist = async (req, res) => {
     const shareTodos = await Promise.all(
       clientIds.map(clientId => 
         Share.create({
-       Client_Id: clientId,
+          Share_With_Client_Id: clientId,
           Todolist_Id: todoList.id,
           // TodoListId: todoList.id,
           Created_By: createdBy,
