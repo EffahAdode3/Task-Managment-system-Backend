@@ -85,7 +85,7 @@ const getAllToDoList = async (req, res) => {
       where: { Client_Id: clientId },
       include: [{
         model: Todolist,
-        as: 'Todolist',  // Specify the alias here
+        as: 'shareTodo',  // Specify the alias here
         order: [['deadline', 'ASC']]
       }]
     });
