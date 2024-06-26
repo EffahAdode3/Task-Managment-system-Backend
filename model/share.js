@@ -109,20 +109,32 @@ const Share = sequelize.define("Share", {
 }, { timestamps: true });
 
 // Define associations
-Share.belongsTo(Client, { as: 'Client', foreignKey: 'Share_With_Client_Id' });
-Share.belongsTo(Todolist, { as: 'Todolist', foreignKey: 'Todolist_Id' });
+// Share.belongsTo(Client, { as: 'Client', foreignKey: 'Share_With_Client_Id' });
+// Share.belongsTo(Todolist, { as: 'Todolist', foreignKey: 'Todolist_Id' });
 
 
 
-Client.hasMany(Share, { as: 'Shares', foreignKey: 'Share_With_Client_Id' });
-Todolist.hasMany(Share, { as: 'Shares', foreignKey: 'Todolist_Id' });
+// Client.hasMany(Share, { as: 'Shares', foreignKey: 'Share_With_Client_Id' });
+// Todolist.hasMany(Share, { as: 'Shares', foreignKey: 'Todolist_Id' });
 
-Share.belongsTo(Client, { as: 'Creator', foreignKey: 'Created_By' });
-Client.hasMany(Share, { as: 'CreatedShares', foreignKey: 'Created_By' });
+// Share.belongsTo(Client, { as: 'Creator', foreignKey: 'Created_By' });
+// Client.hasMany(Share, { as: 'CreatedShares', foreignKey: 'Created_By' });
 
-Todolist.belongsTo(Client, { foreignKey: 'client_Id_As_Foreignkey',  as: 'Owner', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
-Client.hasMany(Todolist, { as: 'TodoLists', foreignKey: 'client_Id_As_Foreignkey' });
+// Todolist.belongsTo(Client, { foreignKey: 'client_Id_As_Foreignkey',  as: 'Owner', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+// Client.hasMany(Todolist, { as: 'TodoLists', foreignKey: 'client_Id_As_Foreignkey' });
 
+
+Share.belongsTo(Client, { as: 'Client', foreignKey: 'Share_With_Client_Id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+Share.belongsTo(Todolist, { as: 'Todolist', foreignKey: 'Todolist_Id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+
+Client.hasMany(Share, { as: 'Shares', foreignKey: 'Share_With_Client_Id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+Todolist.hasMany(Share, { as: 'Shares', foreignKey: 'Todolist_Id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+
+Share.belongsTo(Client, { as: 'Creator', foreignKey: 'Created_By', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+Client.hasMany(Share, { as: 'CreatedShares', foreignKey: 'Created_By', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+
+Todolist.belongsTo(Client, { as: 'Owner', foreignKey: 'client_Id_As_Foreignkey', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+Client.hasMany(Todolist, { as: 'TodoLists', foreignKey: 'client_Id_As_Foreignkey', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 export default Share;
 
 
