@@ -121,7 +121,6 @@ Share.belongsTo(Client, { as: 'Creator', foreignKey: 'Created_By' });
 Client.hasMany(Share, { as: 'CreatedShares', foreignKey: 'Created_By' });
 
 Todolist.belongsTo(Client, { foreignKey: 'client_Id_As_Foreignkey',  as: 'Owner', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
-
 Client.hasMany(Todolist, { as: 'TodoLists', foreignKey: 'client_Id_As_Foreignkey' });
 
 export default Share;
