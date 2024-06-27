@@ -25,7 +25,6 @@ const sendNotificationEmail = async (email,   newTodo) => {
     subject: 'You have been assigned a new To-Do List',
     text: `You have been assigned to the To-Do list titled "${ newTodo}". Please check your dashboard for more details.`,
   };
-
   try {
     await transporter.sendMail(mailOptions);
     console.log(`Notification email sent to ${email}`);
@@ -88,55 +87,7 @@ const todoList = async (req, res) =>{
     }
 }
 
-
-
-
-// Get all To do list
-// const getAllToDoList = async (req, res) => {
-//   try {
-//     const clientId = req.Client_id;
-//     let allToDoList = [];
-
-//     const user = await Client.findByPk(clientId);
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-
-//     // Fetch to-dos created by the user
-//     allToDoList = await Todolist.findAll({
-//       where: { client_id: clientId },
-//       order: [['deadline', 'ASC']]
-//     });
-
-//     // Fetch to-dos shared with the user
-//   allToDoList = await Share.findAll({
-//       where: { Client_Id: clientId },
-//       include: [{
-//         model: Todolist,
-//         as: 'Todolist',  // Specify the alias here
-//         order: [['deadline', 'ASC']]
-//       }]
-//     });
-
-//     // Combine both lists
-//     // allToDoList = createdToDos.concat(sharedToDos.map(share => share.Todolist));
-
-//     if (allToDoList.length === 0) {
-//       return res.status(409).json({
-//         message: 'No To Do List found'
-//       });
-//     } else {
-//       return res.status(200).json({
-//         message: "Success",
-//         allToDoList
-//       });
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ message: "Server error" });
-//   }
-// };
-
+/// get all to do list
 const getAllToDoList = async (req, res) => {
   try {
     const clientId = req.Client_id;
@@ -188,39 +139,7 @@ const getAllToDoList = async (req, res) => {
 };
 
 
-// const getAllToDoList = async (req, res) => {
-//   try {
-//     console.log(req.Client_id);
-//     let allToDoList = [];
-//     const user = await Client.findByPk(req.Client_id);
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-//     const currentDate = new Date();
-//     allToDoList = await Todo.findAll({
 
-//       where: { 
-//         client_id: user.id ,
-//       },
-//       order: [
-//         ['deadline', 'ASC'],  
-//       ]
-//     });
-//     if (allToDoList.length === 0) {
-//       return res.status(409).json({
-//         message: 'No To Do List found'
-//       });
-//     } else {
-//       return res.status(200).json({
-//         message: "Success",
-//         allToDoList
-//       });
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ message: "Server error" });
-//   }
-// }
 
 
 // Get all by Category
