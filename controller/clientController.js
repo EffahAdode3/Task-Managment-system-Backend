@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 });
 
 /// Email Function 
-const sendNotificationEmail = async (email,   newTodo) => {
+const sendNotificationEmail = async (email,  newTodo) => {
   const mailOptions = {
     from: 'maximnyansa75@gmail.com',
     to: email,
