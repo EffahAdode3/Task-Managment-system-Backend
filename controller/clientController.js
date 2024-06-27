@@ -4,6 +4,7 @@ import bcryptjs from "bcryptjs";
 import { Op } from "sequelize";
 import dotenv from 'dotenv';
 import Share from "../model/share.js";
+import nodemailer from "nodemailer"
 dotenv.config();
 const JWT_SECRET = process.env.ACCESS_TOKEN;
 
