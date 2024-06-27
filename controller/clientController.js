@@ -7,6 +7,33 @@ import Share from "../model/share.js";
 dotenv.config();
 const JWT_SECRET = process.env.ACCESS_TOKEN;
 
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASS
+  }
+});
+
+/// Email Function 
+const sendNotificationEmail = async (email,   newTodo) => {
+  const mailOptions = {
+    from: 'maximnyansa75@gmail.com',
+    to: email,
+    subject: 'You have been assigned a new To-Do List',
+    text: `You have been assigned to the To-Do list titled "${ newTodo}". Please check your dashboard for more details.`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`Notification email sent to ${email}`);
+  } catch (error) {
+    console.error(`Error sending email to ${email}:`, error.message);
+  }
+};
+
+
 //sign up
 const SignUpClient = async (req, res) => {
     try {
@@ -314,58 +341,8 @@ const deleteTodo = async (req, res) => {
 }
 };
 
-/// Assign TO do List
-// const assignTodolist = async (req, res) => {
-//   try {
-//     const Created_By =  req.Client_id;
-//     const todoId = req.params.todoId;
-//     const emails = req.body.emails;
-//     console.log(Created_By, "created_ID");
-//     console.log(todoId, "todoID");
-//     console.log(emails, "emails");
 
-//     const users = await Client.findAll({ where: { email: emails } });
-//     const Client_Ids = users.map(user => user.id); // Extract IDs from users array
-
-//     const TodolistId = await Todo.findByPk(todoId);
-//     const Todolist_Id = TodolistId ? TodolistId.id : null; // Extract ID from TodolistId object
-
-//     if (!Todolist_Id) {
-//       return res.status(404).json({ message: 'Todo not found' });
-//     }
-
-//     console.log(Client_Ids, "client Ids");
-//     console.log(Todolist_Id, "Todolist Id");
-
-//     // Assuming you want to create ShareTodo for each Client_Id with the single Todolist_Id
-//     const shareTodos = await Promise.all(
-//       Client_Ids.map(Client_Id => 
-//         Share.create({
-//           Client_Id: Client_Id,
-//           Todolist_Id: Todolist_Id,
-//           Created_By: Created_By,
-       
-//         })
-//       )
-//     );
-
-//     if (shareTodos.length > 0) {
-//       return res.status(201).json({ message: shareTodos });
-//     }
-//   } catch (error) {
-//     if (error.errors && error.errors.length > 0) {
-//       // Log validation errors
-//       error.errors.forEach(err => {
-//         console.error(err.message, err.path, err.value);
-//       });
-//       return res.status(400).json({ message: 'Validation error', errors: error.errors });
-//     } else {
-//       // Log generic error message
-//       console.error('Error:', error.message);
-//       return res.status(500).json({ message: error.message });
-//     }
-//   }
-// };
+/// assign to do list 
 
 const assignTodolist = async (req, res) => {
   try {
@@ -389,10 +366,13 @@ const assignTodolist = async (req, res) => {
         Share.create({
           Share_With_Client_Id: clientId,
           Todolist_Id: todoList.id,
-          // TodoListId: todoList.id,
           Created_By: createdBy,
         })
       )
+    );
+
+    await Promise.all(
+      users.map(user => sendNotificationEmail(user.email, todoList.newTodo))
     );
 
     if (shareTodos.length > 0) {
@@ -413,6 +393,7 @@ const assignTodolist = async (req, res) => {
   }
 };
 
+//
 
 export default {SignUpClient,  Login, 
   todoList, getAllToDoList, getToToByCategory,
