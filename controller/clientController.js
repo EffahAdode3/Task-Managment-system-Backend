@@ -167,6 +167,7 @@ const getAllToDoList = async (req, res) => {
       ...createdToDos,
       ...sharedToDos.map(share => share.Todolist)
     ];
+    
 
     // Sort the combined list by deadline
     allToDoList.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
