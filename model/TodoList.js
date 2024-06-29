@@ -26,6 +26,10 @@ const Todolist = sequelize.define(
       type: DataType.STRING,
       allowNull: false,
     },
+    reminderTime: {
+      type: DataType.DATE,
+      allowNull: false,
+    },
   },
   { timestamps: true }
 );

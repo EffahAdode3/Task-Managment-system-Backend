@@ -69,13 +69,14 @@ const todoList = async (req, res) =>{
     try {
         const client_Id_As_Foreignkey =  req.Client_id;
         console.log(client_Id_As_Foreignkey);
-        const {newTodo, category, deadline, statuses, } = req.body;
+        const {newTodo, category, deadline, statuses, reminderInterval } = req.body;
         const todoData = {
             newTodo,
             category,
             deadline,
             client_Id_As_Foreignkey,
             statuses,
+            reminderInterval 
             };
             const createtodo = await Todolist.create(todoData);
             if(createtodo){
@@ -262,6 +263,7 @@ const deleteTodo = async (req, res) => {
 };
 
 
+
 /// assign to do list 
 const assignTodolist = async (req, res) => {
   try {
@@ -312,7 +314,66 @@ const assignTodolist = async (req, res) => {
   }
 };
 
-//
+
+
+
+
+
+// const getAllToDoList = async (req, res) => {
+//   try {
+//     const clientId = req.Client_id;
+
+//     const user = await findUserById(clientId);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     const createdToDos = await fetchCreatedToDos(clientId);
+//     const sharedToDos = await fetchSharedToDos(clientId);
+
+//     const allToDoList = combineAndSortToDos(createdToDos, sharedToDos);
+
+//     if (allToDoList.length === 0) {
+//       return res.status(409).json({ message: 'No To Do List found' });
+//     } else {
+//       return res.status(200).json({ message: "Success", allToDoList });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ message: "Server error" });
+//   }
+// };
+
+// const findUserById = async (clientId) => {
+//   return await Client.findByPk(clientId);
+// };
+
+// const fetchCreatedToDos = async (clientId) => {
+//   return await Todolist.findAll({
+//     where: { client_Id_As_Foreignkey: clientId },
+//     order: [['deadline', 'ASC']]
+//   });
+// };
+
+// const fetchSharedToDos = async (clientId) => {
+//   return await Share.findAll({
+//     where: { Share_With_Client_Id: clientId },
+//     include: [{
+//       model: Todolist,
+//       as: 'Todolist'
+//     }]
+//   });
+// };
+
+// const combineAndSortToDos = (createdToDos, sharedToDos) => {
+//   const combinedToDos = [
+//     ...createdToDos,
+//     ...sharedToDos.map(share => share.Todolist)
+//   ];
+
+//   return combinedToDos.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+// };
+
 
 export default {SignUpClient,  Login, 
   todoList, getAllToDoList, getToToByCategory,
