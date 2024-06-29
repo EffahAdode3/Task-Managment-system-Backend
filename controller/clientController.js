@@ -69,14 +69,14 @@ const todoList = async (req, res) =>{
     try {
         const client_Id_As_Foreignkey =  req.Client_id;
         console.log(client_Id_As_Foreignkey);
-        const {newTodo, category, deadline, statuses, reminderInterval } = req.body;
+        const {newTodo, category, deadline, statuses, reminderTime } = req.body;
         const todoData = {
             newTodo,
             category,
             deadline,
             client_Id_As_Foreignkey,
             statuses,
-            reminderInterval 
+            reminderTime 
             };
             const createtodo = await Todolist.create(todoData);
             if(createtodo){
