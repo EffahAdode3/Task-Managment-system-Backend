@@ -59,7 +59,10 @@ const checkReminders = async () => {
 };
 
 // Set interval to check reminders every minute
-setInterval(checkReminders, 60000);
+setInterval(checkReminders, 43200000);
+
+// For every 24 hours
+// setInterval(checkReminders, 86400000);
 
 
 /// Email Function  for assign
