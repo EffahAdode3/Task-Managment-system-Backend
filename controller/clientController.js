@@ -17,7 +17,51 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-/// Email Function 
+/// email for Reminder 
+
+const sendReminderEmail = (to, subject, text) => {
+  const mailOptions = {
+      from: 'maximnyansa75@gmail.com',
+      to,
+      subject,
+      text
+  };
+
+  return transporter.sendMail(mailOptions);
+};
+
+const checkReminders = async () => {
+  try {
+      const currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
+      const reminders = await Todolist.findAll({ where: { reminderTime: currentTime } });
+
+      for (const reminder of reminders) {
+          const { newTodo, category, deadline, reminderTime, client_Id_As_Foreignkey } = reminder;
+
+          // Retrieve client email using client_Id_As_Foreignkey
+          const client = await Client.findByPk(client_Id_As_Foreignkey);
+          if (client && client.email) {
+              const subject = `Reminder: ${category}`;
+              const text = `This is a reminder for your to-do: "${newTodo}" which is due on ${deadline}.`;
+
+              try {
+                  await sendReminderEmail(client.email, subject, text);
+                  console.log(`Reminder email sent to ${client.email}`);
+              } catch (error) {
+                  console.error(`Error sending email to ${client.email}:`, error);
+              }
+          }
+      }
+  } catch (error) {
+      console.error('Error checking reminders:', error);
+  }
+};
+
+// Set interval to check reminders every minute
+setInterval(checkReminders, 60000);
+
+
+/// Email Function  for assign
 const sendNotificationEmail = async (email,  newTodo) => {
   const mailOptions = {
     from: 'maximnyansa75@gmail.com',
