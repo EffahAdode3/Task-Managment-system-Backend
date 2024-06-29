@@ -33,7 +33,7 @@ const sendReminderEmail = (to, subject, text) => {
 
 const checkReminders = async () => {
   try {
-    const currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    const currentTime = moment().format('YYYY-MM-DD');
     console.log(currentTime)
     const reminders = await Todolist.findAll({ where: { reminderTime: currentTime } });
 
