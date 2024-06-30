@@ -65,4 +65,5 @@ const findUsersByEmails = async (emails) => {
 };
 
 
-export default { searchClientsByEmail, findUsersByEmails, getUserById, findUserByEmail, hashPassword, createUser}
+export default { searchClientsByEmail, findUsersByEmails,
+     getUserById, findUserByEmail, hashPassword, createUser}
