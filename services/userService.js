@@ -51,6 +51,7 @@ export const searchClientsByEmail = async (email) => {
             }
         });
     } catch (error) {
+        console.error('Error searching clients by email:', error);
         throw new Error('Error searching clients by email');
     }
 };

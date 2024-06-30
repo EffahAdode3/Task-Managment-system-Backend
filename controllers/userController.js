@@ -1,4 +1,4 @@
-import { findUserByEmail, hashPassword, createUser } from '../services/userService.js';
+import { findUserByEmail, hashPassword, createUser, searchClientsByEmail } from '../services/userService.js';
 
 const SignUpClient = async (req, res) => {
     try {
