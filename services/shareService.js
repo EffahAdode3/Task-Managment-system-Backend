@@ -1,5 +1,5 @@
 import Share from '../model/share.js';
-// import Todolist from '../model/TodoList.js';
+import Todolist from '../model/TodoList.js';
 export const getSharedToDos = async (clientId) => {
     try {
         const sharedToDos = await Share.findAll({
@@ -13,14 +13,7 @@ export const getSharedToDos = async (clientId) => {
         return sharedToDos.map(share => share.Todolist);
     } catch (error) {
         console.error('Error fetching shared to-dos:', error);
-        notifyUserOfError(error);
-        // Another option:
-        reportErrorToService(error);
         throw new Error('Error fetching shared to-dos');
-             // Another option:
-             notifyUserOfError(error);
-             // Another option:
-             reportErrorToService(error);
     }
 };
 
@@ -38,6 +31,7 @@ export const shareTodoList = async (clientIds, todoListId, createdBy) => {
         );
         return shareTodos;
     } catch (error) {
+        console.error('Error sharing to-do list:', error);
         throw new Error('Error sharing to-do list');
     }
 };
