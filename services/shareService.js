@@ -1,6 +1,6 @@
 import Share from '../model/share.js';
 
-const getSharedToDos = async (clientId) => {
+export const getSharedToDos = async (clientId) => {
     try {
         const sharedToDos = await Share.findAll({
             where: { Share_With_Client_Id: clientId },
@@ -15,7 +15,7 @@ const getSharedToDos = async (clientId) => {
     }
 };
 
-const shareTodoList = async (clientIds, todoListId, createdBy) => {
+export const shareTodoList = async (clientIds, todoListId, createdBy) => {
     try {
         const shareTodos = await Promise.all(
             clientIds.map(clientId => 
