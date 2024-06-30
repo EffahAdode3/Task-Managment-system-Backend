@@ -17,7 +17,7 @@ import Todolist from '../model/TodoList.js';
 //     }
 // };
 
-const getCreatedToDos = async (clientId) => {
+export const getCreatedToDos = async (clientId) => {
     try {
         return await Todolist.findAll({
             where: { client_Id_As_Foreignkey: clientId },
@@ -30,7 +30,7 @@ const getCreatedToDos = async (clientId) => {
 
 
 
-const findTodoById = async (id) => {
+export const findTodoById = async (id) => {
     try {
         return await Todolist.findByPk(id);
     } catch (error) {
@@ -38,7 +38,7 @@ const findTodoById = async (id) => {
     }
 };
 
-const updateTodoStatus = async (todo, status) => {
+export const updateTodoStatus = async (todo, status) => {
     try {
         todo.statuses = status;
         await todo.save();
@@ -49,7 +49,7 @@ const updateTodoStatus = async (todo, status) => {
 };
 
 
-const updateTodo = async (todo, updates) => {
+export const updateTodo = async (todo, updates) => {
     try {
         // Update only the fields that are provided in the updates object
         if (updates.category) todo.category = updates.category;
@@ -65,7 +65,7 @@ const updateTodo = async (todo, updates) => {
 };
 
 
-const deleteTodo = async (todo) => {
+export const deleteTodo = async (todo) => {
     try {
         await todo.destroy();
     } catch (error) {
@@ -74,7 +74,7 @@ const deleteTodo = async (todo) => {
 };
 
 
-const getTasksByCategory = async (clientId, category) => {
+export const getTasksByCategory = async (clientId, category) => {
     try {
         const tasks = await Todolist.findAll({
             where: {
