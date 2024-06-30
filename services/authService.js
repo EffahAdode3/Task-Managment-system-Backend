@@ -20,7 +20,7 @@ const generateToken = (user) => {
         email: user.email,
         userName: user.userName,
     };
-    return jwt.sign(payload, secret, { expiresIn: "120s" });
+    return jwt.sign(payload, secret, { expiresIn: "1h" });
 };
 
 
