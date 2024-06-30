@@ -1,8 +1,7 @@
 import Client from "../model/clientModel.js";
 import bcryptjs from "bcryptjs";
-import { Op } from "sequelize";
 // find user By Email
- const findUserByEmail = async (email) => {
+export const findUserByEmail = async (email) => {
     try {
         return await Client.findOne({ where: { email } });
     } catch (error) {
@@ -11,7 +10,7 @@ import { Op } from "sequelize";
 };
 
 // Hash Password
- const hashPassword = async (password) => {
+export const hashPassword = async (password) => {
     try {
         return await bcryptjs.hash(password, 8);
     } catch (error) {
@@ -20,7 +19,7 @@ import { Op } from "sequelize";
 };
 
 // Create User
- const  userCreate = async (userName, email, hashedPassword) => {
+export const createUser = async (userName, email, hashedPassword) => {
     try {
         return await Client.create({
             userName,
@@ -65,5 +64,4 @@ const findUsersByEmails = async (emails) => {
 };
 
 
-export default { searchClientsByEmail, findUsersByEmails,
-     getUserById, findUserByEmail, hashPassword, userCreate}
+export default { searchClientsByEmail, findUsersByEmails, getUserById}
