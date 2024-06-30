@@ -1,6 +1,4 @@
 import  express  from "express";
-// import client from "../controllers/clientController.js"
-// // import auth from '../middleware/auth.js'
 import userController from "../controllers/userController.js";
 import todoController from "../controllers/todoController.js";
 import shareController from "../controllers/shareController.js";
@@ -17,7 +15,10 @@ router.delete('/deleteTodo/:id', auth.tokenVerification, todoController.deleteTo
 router.get('/getClientEmail/:email', auth.tokenVerification, userController.searchEmailController);
 router.post('/assign/:todoId',  auth.tokenVerification, shareController.assignShareController)
 router.get('/getTOdoByCategory/:category', auth.tokenVerification, todoController.getTodoByCategoryController)
+ export default router;
 
+
+ 
 // router.post('/createuser', client.SignUpClient)
 // router.post('/login', auth.generateToken, client.Login )
 // router.post('/todoList', auth.tokenVerification, client.todoList)
