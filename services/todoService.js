@@ -1,6 +1,6 @@
 import Todolist from '../model/TodoList.js';
 
-const createTodo = async (todoData) => {
+ export const createTodo = async (todoData) => {
     try {
         return await Todolist.create(todoData);
     } catch (error) {
@@ -91,7 +91,7 @@ const getTasksByCategory = async (clientId, category) => {
 
 
 
-export default { getUserById, getCreatedToDos, getSharedToDos, createTodo, findTodoById, 
-    updateTodoStatus, updateTodo, deleteTodo, shareTodoList, shareTodoList ,getTasksByCategory };
+export default {  getCreatedToDos,  createTodo, findTodoById, 
+    updateTodoStatus, updateTodo, deleteTodo,   getTasksByCategory };
 
 
