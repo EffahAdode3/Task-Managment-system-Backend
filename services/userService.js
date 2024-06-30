@@ -20,7 +20,7 @@ import { Op } from "sequelize";
 };
 
 // Create User
- const createUser = async (userName, email, hashedPassword) => {
+ const  userCreate = async (userName, email, hashedPassword) => {
     try {
         return await Client.create({
             userName,
@@ -66,4 +66,4 @@ const findUsersByEmails = async (emails) => {
 
 
 export default { searchClientsByEmail, findUsersByEmails,
-     getUserById, findUserByEmail, hashPassword, createUser}
+     getUserById, findUserByEmail, hashPassword, userCreate}

@@ -1,4 +1,4 @@
-import { findUserByEmail, hashPassword, createUser } from '../services/userService.js';
+import { findUserByEmail, hashPassword, userCreate } from '../services/userService.js';
 
 const SignUpClient = async (req, res) => {
     try {
@@ -11,7 +11,7 @@ const SignUpClient = async (req, res) => {
 
         const hashedPassword = await hashPassword(password);
 
-        const newUser = await createUser(userName, email, hashedPassword);
+        const newUser = await userCreate(userName, email, hashedPassword);
         if (newUser) {
             return res.status(201).json({ message: "Successful User" });
         }
