@@ -1,5 +1,6 @@
 import Client from "../model/clientModel.js";
 import bcryptjs from "bcryptjs";
+import { Op } from "sequelize";
 // find user By Email
 export const findUserByEmail = async (email) => {
     try {
