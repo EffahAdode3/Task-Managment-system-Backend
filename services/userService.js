@@ -32,7 +32,7 @@ export const createUser = async (userName, email, hashedPassword) => {
 };
 
 
-const getUserById = async (clientId) => {
+export const getUserById = async (clientId) => {
     try {
         return await Client.findByPk(clientId);
     } catch (error) {
@@ -41,7 +41,7 @@ const getUserById = async (clientId) => {
 };
 
 
-const searchClientsByEmail = async (email) => {
+export const searchClientsByEmail = async (email) => {
     try {
         return await Client.findAll({
             where: {
@@ -55,7 +55,7 @@ const searchClientsByEmail = async (email) => {
     }
 };
 
-const findUsersByEmails = async (emails) => {
+export const findUsersByEmails = async (emails) => {
     try {
         return await Client.findAll({ where: { email: emails } });
     } catch (error) {
