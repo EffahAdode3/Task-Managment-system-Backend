@@ -11,7 +11,7 @@ export const getSharedToDos = async (clientId) => {
         });
         return sharedToDos.map(share => share.Todolist);
     } catch (error) {
-        throw new Error('Error fetching shared to-dos');
+        throw new Error('Error fetching shared to-dos', error);
     }
 };
 
