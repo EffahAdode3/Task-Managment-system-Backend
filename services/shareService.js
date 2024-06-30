@@ -7,7 +7,8 @@ export const getSharedToDos = async (clientId) => {
             include: [{
                 model: Todolist,
                 as: 'Todolist'
-            }]
+            }],
+            logging: console.log 
         });
         return sharedToDos.map(share => share.Todolist);
     } catch (error) {
