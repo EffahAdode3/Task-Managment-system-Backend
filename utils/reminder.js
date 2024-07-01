@@ -6,8 +6,13 @@ import { sendReminderEmail } from './emailUtils.js';
 const checkReminders = async () => {
     try {
         const currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
-        const reminders = await Todolist.findAll({ where: { reminderTime: currentTime } });
+        const reminders = await Todolist.findAll({ where: { reminderTime: currentTime } })
 
+        if (reminders.length === 0) {
+            console.log('No reminders found at this time.');
+        } else {
+            console.log(`Found ${reminders.length} reminders.`);
+        }
         for (const reminder of reminders) {
             const { newTodo, category, deadline, reminderTime, client_Id_As_Foreignkey } = reminder;
 
