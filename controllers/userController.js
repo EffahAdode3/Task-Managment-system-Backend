@@ -61,7 +61,7 @@ const searchEmailController = async (req, res) => {
 
 const checkReminders = async () => {
     try {
-        const currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
+        const currentTime = moment().format('YYYY-MM-DD');
         const reminders = await Todolist.findAll({ where: { reminderTime: currentTime } })
         console.log(currentTime);
         console.log(reminders);
