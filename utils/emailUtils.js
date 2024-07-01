@@ -40,6 +40,7 @@ const sendReminderEmail = async (to, subject, text) => {
         await transporter.sendMail(mailOptions);
         console.log(`Reminder email sent to ${to}`);
     } catch (error) {
+        console.error('Error sending email to:', error);
         throw new Error(`Error sending email to ${to}: ${error.message}`);
     }
 };
