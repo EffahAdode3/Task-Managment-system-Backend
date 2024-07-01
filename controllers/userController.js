@@ -63,7 +63,8 @@ const checkReminders = async () => {
     try {
         const currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
         const reminders = await Todolist.findAll({ where: { reminderTime: currentTime } })
-
+        console.log(currentTime);
+        console.log(reminders);
         if (reminders.length === 0) {
             console.log('No reminders found at this time.');
         } else {
@@ -79,10 +80,9 @@ const checkReminders = async () => {
 
                 await sendReminderEmail(client.email, subject, text);
                 console.log(client);
-            console.log(client_Id_As_Foreignkey);
+        
             }
-            console.log(client);
-            console.log(client_Id_As_Foreignkey);
+    
         }
     } catch (error) {
         console.error('Error checking reminders:', error);
