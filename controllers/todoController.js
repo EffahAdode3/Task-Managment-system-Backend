@@ -85,7 +85,7 @@ const updateStatus = async (req, res) => {
 
 const updateTodoController = async (req, res) => {
     const { id } = req.params;
-    const { category, newTodo, deadline, statuses } = req.body;
+    const { category, newTodo, deadline, statuses, reminderTime } = req.body;
 
     try {
         const todo = await findTodoById(id);
