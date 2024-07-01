@@ -98,7 +98,8 @@ const updateTodoController = async (req, res) => {
             category,
             newTodo,
             deadline,
-            statuses
+            statuses,
+            reminderTime
         };
 
         const updatedTodo = await updateTodo(todo, updates);

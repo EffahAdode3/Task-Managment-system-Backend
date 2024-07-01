@@ -56,6 +56,7 @@ export const updateTodo = async (todo, updates) => {
         if (updates.newTodo) todo.newTodo = updates.newTodo;
         if (updates.deadline) todo.deadline = updates.deadline;
         if (updates.statuses) todo.statuses = updates.statuses;
+        if (updates.reminderTime) todo.reminderTime = updates.reminderTime;
 
         await todo.save();
         return todo;
