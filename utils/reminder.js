@@ -4,7 +4,7 @@ import Todolist from '../model/TodoList.js';
 
 const checkReminders = async () => {
     try {
-        const currentTime = moment().format('YYYY-MM-DD');
+        const currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
         const reminders = await Todolist.findAll({ where: { reminderTime: currentTime } });
 
         for (const reminder of reminders) {
@@ -24,4 +24,5 @@ const checkReminders = async () => {
     }
 };
 
-setInterval(checkReminders, 43200000);
+// setInterval(checkReminders, 43200000);
+setInterval(checkReminders, 60000);
