@@ -92,7 +92,6 @@ const updateTodoController = async (req, res) => {
         if (!todo) {
             return res.status(404).json({ message: 'To-do item not found' });
         }
-
         // Prepare updates object based on request body
         const updates = {
             category,
