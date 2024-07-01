@@ -13,6 +13,7 @@ const checkReminders = async () => {
         } else {
             console.log(`Found ${reminders.length} reminders.`);
         }
+        
         for (const reminder of reminders) {
             const { newTodo, category, deadline, reminderTime, client_Id_As_Foreignkey } = reminder;
 
