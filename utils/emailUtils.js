@@ -23,6 +23,7 @@ const sendNotificationEmail = async (email, newTodo) => {
         console.log(`Notification email sent to ${email}`);
     } catch (error) {
         console.error(`Error sending email to ${email}:`, error.message);
+    
     }
 };
 
