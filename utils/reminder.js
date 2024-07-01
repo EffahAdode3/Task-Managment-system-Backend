@@ -12,12 +12,11 @@ const checkReminders = async () => {
             console.log('No reminders found at this time.');
         } else {
             console.log(`Found ${reminders.length} reminders.`);
-        }
-        
+        }      
         for (const reminder of reminders) {
             const { newTodo, category, deadline, reminderTime, client_Id_As_Foreignkey } = reminder;
 
-            const client = await Client.findByPk(client_Id_As_Foreignkey);
+            const client = await lient.findByPk(client_Id_As_Foreignkey);
             if (client && client.email) {
                 const subject = `Reminder: ${category}`;
                 const text = `This is a reminder for your to-do: "${newTodo}" which is due on ${deadline}.`;
