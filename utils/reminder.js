@@ -19,7 +19,9 @@ const checkReminders = async () => {
             }
         }
     } catch (error) {
+        console.error('Error checking reminders:', error);
         throw new Error(`Error checking reminders: ${error.message}`);
     }
 };
+
 setInterval(checkReminders, 43200000);
