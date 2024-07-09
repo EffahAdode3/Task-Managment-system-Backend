@@ -32,7 +32,7 @@ export const shareTodoList = async (clientIds, todoListId, createdBy) => {
         return shareTodos;
     } catch (error) {
         console.error('Error sharing to-do list:', error);
-        throw new Error('Error sharing to-do list');
+        throw new Error('Error sharing to-do list' );
     }
 };
 

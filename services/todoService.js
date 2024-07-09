@@ -4,18 +4,12 @@ import Todolist from '../model/TodoList.js';
     try {
         return await Todolist.create(todoData);
     } catch (error) {
+        console.error('Error creating todo', error);
         throw new Error('Error creating todo');
     }
 };
 
 
-// const getUserById = async (clientId) => {
-//     try {
-//         return await Client.findByPk(clientId);
-//     } catch (error) {
-//         throw new Error('Error finding user');
-//     }
-// };
 
 export const getCreatedToDos = async (clientId) => {
     try {
@@ -24,6 +18,7 @@ export const getCreatedToDos = async (clientId) => {
             order: [['deadline', 'ASC']]
         });
     } catch (error) {
+        console.error('Error fetching created to-dos', error);
         throw new Error('Error fetching created to-dos');
     }
 };
@@ -34,6 +29,7 @@ export const findTodoById = async (id) => {
     try {
         return await Todolist.findByPk(id);
     } catch (error) {
+        console.error('Error finding to-do item by ID', error);
         throw new Error('Error finding to-do item by ID');
     }
 };
@@ -44,6 +40,7 @@ export const updateTodoStatus = async (todo, status) => {
         await todo.save();
         return todo;
     } catch (error) {
+        console.error('Error updating to-do item status', error);
         throw new Error('Error updating to-do item status');
     }
 };
@@ -61,6 +58,7 @@ export const updateTodo = async (todo, updates) => {
         await todo.save();
         return todo;
     } catch (error) {
+        console.error('Error updating to-do item', error);
         throw new Error('Error updating to-do item');
     }
 };
@@ -70,6 +68,7 @@ export const deleteTodo = async (todo) => {
     try {
         await todo.destroy();
     } catch (error) {
+        console.error('Error deleting to-do item', error);
         throw new Error('Error deleting to-do item');
     }
 };
@@ -86,6 +85,7 @@ export const getTasksByCategory = async (clientId, category) => {
         });
         return tasks;
     } catch (error) {
+        console.error('Error fetching tasks by category', error);
         throw new Error('Error fetching tasks by category');
     }
 };

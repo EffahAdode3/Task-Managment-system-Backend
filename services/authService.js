@@ -10,6 +10,7 @@ const verifyPassword = async (password, hash) => {
     try {
         return await bcrypt.compare(password, hash);
     } catch (error) {
+        console.error('Error verifying password', error);
         throw new Error('Error verifying password');
     }
 };
@@ -35,6 +36,7 @@ const decodeToken = (token) => {
     try {
         return jwt.decode(token, { complete: true });
     } catch (error) {
+          console.error('Invalid token format', error);
         throw new Error('Invalid token format');
     }
 };
@@ -48,10 +50,13 @@ const verifyToken = (token) => {
     try {
         return jwt.verify(token, secret);
     } catch (error) {
+        console.error('Invalid token', error);
         throw new Error('Invalid token');
     }
 };
 
 
 
-export {  verifyPassword, generateToken,  extractTokenFromHeader, decodeToken, isTokenExpired, verifyToken  };
+export {  verifyPassword, generateToken,  
+    extractTokenFromHeader, decodeToken, 
+    isTokenExpired, verifyToken  };

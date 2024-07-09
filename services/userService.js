@@ -6,6 +6,7 @@ export const findUserByEmail = async (email) => {
     try {
         return await Client.findOne({ where: { email } });
     } catch (error) {
+        console.error('Error checking for existing user', error);
         throw new Error('Error checking for existing user');
     }
 };
@@ -15,6 +16,7 @@ export const hashPassword = async (password) => {
     try {
         return await bcryptjs.hash(password, 8);
     } catch (error) {
+        console.error('Error hashing password', error);
         throw new Error('Error hashing password');
     }
 };
