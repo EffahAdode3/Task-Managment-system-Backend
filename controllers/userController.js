@@ -74,7 +74,7 @@ const checkReminders = async () => {
             const client = await Client.findByPk(client_Id_As_Foreignkey);
             if (client && client.email) {
                 const subject = `Reminder: ${category}`;
-                const text = `This is a reminder for your to-do: "${newTodo}" which is due on   ${ new Date(deadline).toDateString() }.`;      
+                const text = `This is a reminder for your to-do: "${newTodo}" which is due on   ${ new Date(deadline) }.`;      
 
                 await sendReminderEmail(client.email, subject, text);
                 console.log(client);
