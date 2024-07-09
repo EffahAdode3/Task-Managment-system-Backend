@@ -74,7 +74,7 @@ const checkReminders = async () => {
             const client = await Client.findByPk(client_Id_As_Foreignkey);
             if (client && client.email) {
                 const subject = `Reminder: ${category}`;
-                const text = `This is a reminder for your to-do: "${newTodo}" which is due on   ${ new Date(deadline) }.`;      
+                const text = `This is a reminder for your to-do: "${newTodo}" which is due on   ${ new Date(deadline).toDateString() }.`;      
 
                 await sendReminderEmail(client.email, subject, text);
                 console.log(client);
@@ -88,8 +88,8 @@ const checkReminders = async () => {
     }
 };
 
-// setInterval(checkReminders, 43200000);
-setInterval(checkReminders, 60000);
+setInterval(checkReminders, 43200000);
+// setInterval(checkReminders, 60000);
 
 
 export default {SignUpClient, loginController, searchEmailController};
