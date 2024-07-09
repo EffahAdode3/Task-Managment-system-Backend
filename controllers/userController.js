@@ -90,8 +90,8 @@ const checkReminders = async () => {
     }
 };
 
-// setInterval(checkReminders, 43200000);
-setInterval(checkReminders, 60000);
+setInterval(checkReminders, 43200000);
+// setInterval(checkReminders, 60000);
 
 
 export default {SignUpClient, loginController, searchEmailController};
