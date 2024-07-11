@@ -61,8 +61,8 @@ const passwordRestLink = async (req, res) => {
     try {
       const { email } = req.body;
       const existingUser = await findUserByEmail(email);
-      if (existingUser) {
-          return res.status(409).json({ message: 'exist' });
+      if (!existingUser) {
+        return res.status(404).json({ message: "Email not found" });
       }
   
       const resetToken = generateResetToken();
