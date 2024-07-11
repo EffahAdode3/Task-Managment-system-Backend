@@ -70,6 +70,7 @@ export const findUsersByEmails = async (emails) => {
     } catch (error) {
         console.error('Error finding users by emails', error);
         throw new Error('Error finding users by emails');
+        
     }
 };
 
@@ -84,7 +85,6 @@ export const generateResetToken = () => {
   
 
 export const updateClientResetToken = async (email, resetToken) => {
-
     try {
         await Client.update({ password: resetToken }, { where: { email } });
     } catch (error) {
