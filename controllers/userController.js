@@ -1,4 +1,4 @@
-import { findUserByEmail, hashPassword, createUser, searchClientsByEmail } from '../services/userService.js';
+import { findUserByEmail, hashPassword, createUser, searchClientsByEmail, generateResetToken, updateClientResetToken } from '../services/userService.js';
 import moment from 'moment';
 import Client from '../model/clientModel.js';
 import Todolist from '../model/TodoList.js';
