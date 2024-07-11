@@ -73,14 +73,26 @@ export const findUsersByEmails = async (emails) => {
     }
 };
 
-export const generateResetToken = () => {
-    return crypto.randomBytes(20).toString('hex');
-  };
+export const generateResetToken = () => {   
+    try {
+        return crypto.randomBytes(20).toString('hex');
+    } catch (error) {
+        console.error('Error creating Crypto', error);
+        throw new Error('Error creating Crypto');
+    }
+};
+  
 
 export const updateClientResetToken = async (email, resetToken) => {
-    await Client.update({ password: resetToken }, { where: { email } });
-  };
 
+    try {
+        await Client.update({ password: resetToken }, { where: { email } });
+    } catch (error) {
+        console.error('Error update client Reset token', error);
+        throw new Error('Error update client Reset token');
+    }
+};
+   
 
 export default { searchClientsByEmail, findUsersByEmails,
      getUserById, generateResetToken, updateClientResetToken}
