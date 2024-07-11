@@ -1,6 +1,7 @@
 import Client from "../model/clientModel.js";
 import bcryptjs from "bcryptjs";
 import { Op } from "sequelize";
+import crypto from 'crypto'
 // find user By Email
 export const findUserByEmail = async (email) => {
     try {
@@ -72,5 +73,14 @@ export const findUsersByEmails = async (emails) => {
     }
 };
 
+export const generateResetToken = () => {
+    return crypto.randomBytes(20).toString('hex');
+  };
 
-export default { searchClientsByEmail, findUsersByEmails, getUserById}
+export const updateClientResetToken = async (email, resetToken) => {
+    await Client.update({ password: resetToken }, { where: { email } });
+  };
+
+
+export default { searchClientsByEmail, findUsersByEmails,
+     getUserById, generateResetToken, updateClientResetToken}

@@ -15,6 +15,7 @@ router.delete('/deleteTodo/:id', auth.tokenVerification, todoController.deleteTo
 router.get('/getClientEmail/:email', auth.tokenVerification, userController.searchEmailController);
 router.post('/assign/:todoId',  auth.tokenVerification, shareController.assignShareController)
 router.get('/getTOdoByCategory/:category', auth.tokenVerification, todoController.getTodoByCategoryController)
+router.post('/forgetPassword', userController.passwordRestLink)
  export default router;
 
 

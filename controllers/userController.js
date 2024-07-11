@@ -2,9 +2,9 @@ import { findUserByEmail, hashPassword, createUser, searchClientsByEmail } from 
 import moment from 'moment';
 import Client from '../model/clientModel.js';
 import Todolist from '../model/TodoList.js';
-import { sendReminderEmail } from '../utils/emailUtils.js';
+import { sendReminderEmail, emailToRestPasswordLink  } from '../utils/emailUtils.js';
 
-
+// sign up client 
 const SignUpClient = async (req, res) => {
     try {
         const { userName, email, password } = req.body;
@@ -56,6 +56,33 @@ const searchEmailController = async (req, res) => {
 };
 
 
+
+const passwordRestLink = async (req, res) => {
+    try {
+      const { email } = req.body;
+      const existingUser = await findUserByEmail(email);
+      if (existingUser) {
+          return res.status(409).json({ message: 'exist' });
+      }
+  
+      const resetToken = generateResetToken();
+      const resetLinkFromFrontend = process.env.FORGETPASSWORDLINK;
+      const resetLink = `${resetLinkFromFrontend}/${resetToken}`;
+  
+      await updateClientResetToken(email, resetToken);
+  
+    //   const mailOptions = createMailOptions(email, resetLink);
+  
+      await emailToRestPasswordLink(email, resetLink);
+  
+      return res.status(201).json({ message: "Email sent" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Internal Server Error");
+    }
+  };
+  
+
 /// check Reminder 
 const checkReminders = async () => {
     try {
@@ -92,4 +119,51 @@ setInterval(checkReminders, 43200000);
 // setInterval(checkReminders, 60000);
 
 
-export default {SignUpClient, loginController, searchEmailController};
+export default {SignUpClient, loginController, searchEmailController, passwordRestLink};
+
+
+
+
+// const passwordRestLink = async(req, res) =>{
+//     try {
+//   const {email} = req.body;
+//   const existing = await Client.findOne({where:{email}});
+//   if(!existing){
+//    return res.status(404).json({message:"Email not found"})
+//   }else{
+//     const resetToken = crypto.randomBytes(20).toString('hex');
+//     console.log(resetToken);
+//     const resetLinkFromFrontend = process.env.FORGETPASSWORDLINK
+//     await Client.update({
+//       password: resetToken,},
+//       { where: {email} }
+//     )
+//     var mailOptions = {
+//       from: 'maximnyansa75@gmail.com',
+//       to: email,
+//       subject: 'Password Reset Email ',
+//       html: `<p>
+//       Please click the following link to reset your account's password: 
+//       <br>
+//       <a href="${resetLinkFromFrontend}/${resetToken}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: #ffffff; text-decoration: none; border-radius: 5px;">
+//         Reset Password
+//          </a>
+//     </p>
+//     <p>
+//       If you simply ignore the link, you can not access your account!
+//     </p>`
+//     };
+//     transporter.sendMail(mailOptions, function(error, info){
+//       if (error) {
+//         return res.status(500).json({message:error})
+//       } else {
+//         return res.status(201).json({message:"Email sent"})
+//       }
+//     });
+//   }
+  
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).send("Internal Server Error");
+//   }
+//   }

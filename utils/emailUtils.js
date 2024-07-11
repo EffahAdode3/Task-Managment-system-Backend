@@ -45,4 +45,31 @@ const sendReminderEmail = async (to, subject, text) => {
     }
 };
 
-export { sendNotificationEmail, sendReminderEmail };
+
+const emailToRestPasswordLink = async (email, resetLink) => {
+    const mailOptions = {
+      from: 'maximnyansa75@gmail.com',
+      to: email,
+      subject: 'Password Reset Email',
+      html: `
+        <p>
+          Please click the following link to reset your account's password: 
+          <br>
+          <a href="${resetLink}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: #ffffff; text-decoration: none; border-radius: 5px;">
+            Reset Password
+          </a>
+        </p>
+        <p>
+          If you simply ignore the link, you cannot access your account!
+        </p>`
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log(`Notification email sent to ${email}`);
+    } catch (error) {
+        console.error(`Error sending email to ${email}:`, error.message);  
+    }
+  };
+
+export { sendNotificationEmail, sendReminderEmail,emailToRestPasswordLink };
