@@ -76,33 +76,13 @@ const passwordRestLink = async (req, res) => {
   
       await emailToRestPasswordLink(email, resetLink);
   
-      return res.status(201).json({ message: "Email sent" });
+      return res.status(200).json({ message: "Email sent" });
     } catch (error) {
       console.error(error);
       return res.status(500).send("Internal Server Error");
     }
   };
 
-
-
-//   const restPassword = async (req, res) => {
-//     try {
-//       const UserResetToken = req.params;
-//       const { newPassword } = req.body;
-//       console.log(UserResetToken, "new user");
-      
-//       const existingUser = await getUserByResetToken(UserResetToken);
-//       if (!existingUser) {
-//         return res.status(404).json({ message: 'Request for Password Change' });
-//       }
-//       await updateClientPassword (UserResetToken, newPassword);
-//       return res.status(200).json({ message: 'Password successfully updated.' });
-  
-//     } catch (error) {
-//       console.error(error);
-//       return res.status(500).json({ message: 'Internal Server Error' });
-//     }
-//   };
   
 
 const restPassword = async (req, res) => {

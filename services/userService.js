@@ -94,13 +94,6 @@ export const updateClientResetToken = async (email, resetToken) => {
 };
 
 
-//  export const getUserByResetToken = async (UserResetToken) => {
-//     try {
-//         return await Client.findOne({ where: { UserResetToken } });
-//     } catch (error) {
-//         console.error('Finding ResetToken error', error);
-//     }
-//   };
 
 export const getUserByResetToken = async (token) => {
     try {
