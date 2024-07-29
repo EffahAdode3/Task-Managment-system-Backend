@@ -82,6 +82,26 @@ const passwordRestLink = async (req, res) => {
       return res.status(500).send("Internal Server Error");
     }
   };
+
+
+
+  const restPassword = async (req, res) => {
+    try {
+      const ResetToken = req.params.token;
+      const { newPassword } = req.body;
+      
+      const existingUser = await getUserByResetToken(ResetToken);
+      if (!existingUser) {
+        return res.status(404).json({ message: 'Request for Password Change' });
+      }
+      await updateClientPassword (newPassword);
+      return res.status(200).json({ message: 'Password successfully updated.' });
+  
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };
   
 
 /// check Reminder 
@@ -120,7 +140,7 @@ setInterval(checkReminders, 43200000);
 // setInterval(checkReminders, 60000);
 
 
-export default {SignUpClient, loginController, searchEmailController, passwordRestLink};
+export default {SignUpClient, loginController, searchEmailController, passwordRestLink, restPassword};
 
 
 
