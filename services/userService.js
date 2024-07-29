@@ -119,7 +119,7 @@ export const getUserByResetToken = async (token) => {
 //     );
 //   };
 
-const updateClientPassword = async (token, newPassword) => {
+export const updateClientPassword = async (token, newPassword) => {
     try {
     //   const hashPassword = await bcryptjs.hash(newPassword, 8);
       await Client.update(
