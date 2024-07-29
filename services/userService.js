@@ -108,6 +108,7 @@ export const getUserByResetToken = async (token) => {
 
 export const updateClientPassword = async (token, newPassword) => {
     try {
+        console.log(`Updating password for token: ${token}`);
       const hashPassword = await bcryptjs.hash(newPassword, 8);
       await Client.update(
         {  ResetToken: null, password: hashPassword }, // Ensure 'resetToken' matches your column name
