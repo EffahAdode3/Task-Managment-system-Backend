@@ -89,6 +89,7 @@ const passwordRestLink = async (req, res) => {
     try {
       const {UserResetToken} = req.params.token;
       const { newPassword } = req.body;
+      console.log(UserResetToken, "new user");
       
       const existingUser = await getUserByResetToken(UserResetToken);
       if (!existingUser) {
