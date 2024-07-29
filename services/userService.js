@@ -111,19 +111,13 @@ export const getUserByResetToken = async (token) => {
     }
   };
   
-//   export  const updateClientPassword = async (UserResetToken, newPassword) => {
-//     // const hashPassword = await bcryptjs.hash(newPassword, 8);
-//     await Client.update(
-//       { ResetToken: null, password: newPassword },
-//       { where: { ResetToken: UserResetToken } }
-//     );
-//   };
+
 
 export const updateClientPassword = async (token, newPassword) => {
     try {
-    //   const hashPassword = await bcryptjs.hash(newPassword, 8);
+      const hashPassword = await bcryptjs.hash(newPassword, 8);
       await Client.update(
-        {  ResetToken: null, password: newPassword }, // Ensure 'resetToken' matches your column name
+        {  ResetToken: null, password: hashPassword }, // Ensure 'resetToken' matches your column name
         { where: {  ResetToken: token } }
       );
     } catch (error) {
