@@ -86,7 +86,7 @@ export const generateResetToken = () => {
 
 export const updateClientResetToken = async (email, resetToken) => {
     try {
-        await Client.update({ password: resetToken }, { where: { email } });
+        await Client.update({ ResetToken: resetToken }, { where: { email } });
     } catch (error) {
         console.error('Error update client Reset token', error);
         throw new Error('Error update client Reset token');
