@@ -104,7 +104,7 @@ export const updateClientResetToken = async (email, resetToken) => {
 
 export const getUserByResetToken = async (token) => {
     try {
-      return await Client.findOne({ where: { resetToken: token } }); // Ensure 'resetToken' matches your column name
+      return await Client.findOne({ where: {  ResetToken: token } }); // Ensure 'resetToken' matches your column name
     } catch (error) {
       console.error('Finding ResetToken error', error);
       throw error; // It's a good practice to rethrow the error after logging it
