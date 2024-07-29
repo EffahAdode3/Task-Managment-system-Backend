@@ -10,7 +10,6 @@ import Todolist from '../model/TodoList.js';
 };
 
 
-
 export const getCreatedToDos = async (clientId) => {
     try {
         return await Todolist.findAll({

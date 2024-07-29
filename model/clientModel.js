@@ -22,6 +22,11 @@ const Client = sequelize.define(
       type: DataType.STRING,
       allowNull: false,
     }, 
+    ResetToken: {
+      type: DataType.STRING,
+      allowNull: true,
+    }, 
+
   },
   { timestamps: true }
 );
