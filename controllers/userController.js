@@ -87,14 +87,14 @@ const passwordRestLink = async (req, res) => {
 
   const restPassword = async (req, res) => {
     try {
-      const ResetToken = req.params.token;
+      const UserResetToken = req.params.token;
       const { newPassword } = req.body;
       
-      const existingUser = await getUserByResetToken(ResetToken);
+      const existingUser = await getUserByResetToken(UserResetToken);
       if (!existingUser) {
         return res.status(404).json({ message: 'Request for Password Change' });
       }
-      await updateClientPassword (newPassword);
+      await updateClientPassword (UserResetToken, newPassword);
       return res.status(200).json({ message: 'Password successfully updated.' });
   
     } catch (error) {

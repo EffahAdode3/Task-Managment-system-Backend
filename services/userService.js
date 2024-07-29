@@ -94,19 +94,19 @@ export const updateClientResetToken = async (email, resetToken) => {
 };
 
 
- export const getUserByResetToken = async (ResetToken) => {
+ export const getUserByResetToken = async (UserResetToken) => {
     try {
-        return await Client.findOne({ where: { ResetToken } });
+        return await Client.findOne({ where: { UserResetToken } });
     } catch (error) {
         console.error('Finding ResetToken error', error);
     }
   };
   
-  export  const updateClientPassword = async ( newPassword) => {
+  export  const updateClientPassword = async (UserResetToken, newPassword) => {
     // const hashPassword = await bcryptjs.hash(newPassword, 8);
     await Client.update(
       { ResetToken: null, password: newPassword },
-      { where: { ResetToken: Client.ResetToken } }
+      { where: { ResetToken: UserResetToken } }
     );
   };
    
