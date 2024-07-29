@@ -85,17 +85,37 @@ const passwordRestLink = async (req, res) => {
 
 
 
-  const restPassword = async (req, res) => {
-    try {
-      const UserResetToken = req.params;
-      const { newPassword } = req.body;
-      console.log(UserResetToken, "new user");
+//   const restPassword = async (req, res) => {
+//     try {
+//       const UserResetToken = req.params;
+//       const { newPassword } = req.body;
+//       console.log(UserResetToken, "new user");
       
-      const existingUser = await getUserByResetToken(UserResetToken);
+//       const existingUser = await getUserByResetToken(UserResetToken);
+//       if (!existingUser) {
+//         return res.status(404).json({ message: 'Request for Password Change' });
+//       }
+//       await updateClientPassword (UserResetToken, newPassword);
+//       return res.status(200).json({ message: 'Password successfully updated.' });
+  
+//     } catch (error) {
+//       console.error(error);
+//       return res.status(500).json({ message: 'Internal Server Error' });
+//     }
+//   };
+  
+
+const restPassword = async (req, res) => {
+    try {
+      const token = req.params.token; // Directly access token without destructuring
+      const { newPassword } = req.body;
+      console.log(token, "new user");
+  
+      const existingUser = await getUserByResetToken(token);
       if (!existingUser) {
         return res.status(404).json({ message: 'Request for Password Change' });
       }
-      await updateClientPassword (UserResetToken, newPassword);
+      await updateClientPassword(token, newPassword);
       return res.status(200).json({ message: 'Password successfully updated.' });
   
     } catch (error) {
@@ -103,7 +123,6 @@ const passwordRestLink = async (req, res) => {
       return res.status(500).json({ message: 'Internal Server Error' });
     }
   };
-  
 
 /// check Reminder 
 const checkReminders = async () => {

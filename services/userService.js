@@ -94,20 +94,42 @@ export const updateClientResetToken = async (email, resetToken) => {
 };
 
 
- export const getUserByResetToken = async (UserResetToken) => {
+//  export const getUserByResetToken = async (UserResetToken) => {
+//     try {
+//         return await Client.findOne({ where: { UserResetToken } });
+//     } catch (error) {
+//         console.error('Finding ResetToken error', error);
+//     }
+//   };
+
+export const getUserByResetToken = async (token) => {
     try {
-        return await Client.findOne({ where: {  ResetToken: UserResetToken } });
+      return await Client.findOne({ where: { resetToken: token } }); // Ensure 'resetToken' matches your column name
     } catch (error) {
-        console.error('Finding ResetToken error', error);
+      console.error('Finding ResetToken error', error);
+      throw error; // It's a good practice to rethrow the error after logging it
     }
   };
   
-  export  const updateClientPassword = async (UserResetToken, newPassword) => {
-    // const hashPassword = await bcryptjs.hash(newPassword, 8);
-    await Client.update(
-      { ResetToken: null, password: newPassword },
-      { where: { ResetToken: UserResetToken } }
-    );
+//   export  const updateClientPassword = async (UserResetToken, newPassword) => {
+//     // const hashPassword = await bcryptjs.hash(newPassword, 8);
+//     await Client.update(
+//       { ResetToken: null, password: newPassword },
+//       { where: { ResetToken: UserResetToken } }
+//     );
+//   };
+
+const updateClientPassword = async (token, newPassword) => {
+    try {
+    //   const hashPassword = await bcryptjs.hash(newPassword, 8);
+      await Client.update(
+        {  ResetToken: null, password: newPassword }, // Ensure 'resetToken' matches your column name
+        { where: {  ResetToken: token } }
+      );
+    } catch (error) {
+      console.error('Updating password error', error);
+      throw error; // Rethrow the error after logging it
+    }
   };
    
 
