@@ -22,7 +22,7 @@ router.post('/assign/:todoId',  auth.tokenVerification, shareController.assignSh
 router.get('/getTOdoByCategory/:category', auth.tokenVerification, todoController.getTodoByCategoryController)
 router.post('/forgetPassword', userController.passwordRestLink)
 router.post('/uploadexcel', upload.single('file'), uploadExcel);
-router.post('/resetPassword/:token', userController.restPassword)
+router.post('/resetPassword/:tokenId', userController.restPassword)
  export default router;
 
 
