@@ -9,7 +9,7 @@ import Routes from './routes/clientRoutes.js'
 import dotenv from "dotenv";
 const app = express();
 app.use(bodyParser.json());
-// app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 // app.use( express.static(path.join(__dirname, 'uploadedDoc')));
