@@ -6,6 +6,7 @@ import Routes from './routes/clientRoutes.js'
 import dotenv from "dotenv";
 const app = express();
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 dotenv.config();
 const port = process.env.Port;

@@ -8,7 +8,6 @@ const createTodoController = async (req, res) => {
         const client_Id_As_Foreignkey = req.Client_id;
         console.log(client_Id_As_Foreignkey);
         const { newTodo, category, deadline, statuses, reminderTime, documents  } = req.body;
-
         const todoData = {
             newTodo,
             category,
@@ -18,7 +17,6 @@ const createTodoController = async (req, res) => {
             reminderTime,
             documents: JSON.stringify(req.files.map(file => file.path)),
         };
-
         const createtodo = await createTodo(todoData);
         if (createtodo) {
             return res.status(201).json({ message: "Todo created successfully" });
