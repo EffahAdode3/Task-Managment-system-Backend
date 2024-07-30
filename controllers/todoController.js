@@ -7,18 +7,25 @@ const createTodoController = async (req, res) => {
     try {
         const client_Id_As_Foreignkey = req.Client_id;
         console.log(client_Id_As_Foreignkey);
-        // const { newTodo, category, deadline, statuses, reminderTime, documents  } = req.body;
+        const { newTodo, category, deadline, statuses, reminderTime } = req.body;
         const todoData = {
-            newTodo: req.body.newTodo,
-            category: req.body.category,
-            deadline: req.body.deadline,
-            client_Id_As_Foreignkey:req.body.client_Id_As_Foreignkey,
-            statuses: req.body.statuses,
-            reminderTime: req.body.reminderTime,
+            newTodo,
+            category,
+            deadline,
+            client_Id_As_Foreignkey,
+            statuses,
+            reminderTime,
             documents: JSON.stringify(req.files.map(file => file.path)),
             // documents: req.file ? JSON.stringify([req.file.path]) : null,
         //    documents: req.file.path, 
         };
+        // newTodo: req.body.newTodo,
+        // category: req.body.category,
+        // deadline: req.body.deadline,
+        // client_Id_As_Foreignkey:req.body.client_Id_As_Foreignkey,
+        // statuses: req.body.statuses,
+        // reminderTime: req.body.reminderTime,
+
         const createtodo = await createTodo(todoData);
         if (createtodo) {
             return res.status(201).json({ message: "Todo created successfully" });
