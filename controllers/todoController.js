@@ -6,7 +6,7 @@ import { getUserById } from '../services/userService.js';
 const createTodoController = async (req, res) => {
     try {
         const client_Id_As_Foreignkey = req.Client_id;
-        console.log(client_Id_As_Foreignkey);
+        // console.log(client_Id_As_Foreignkey);
         // const { newTodo, category, deadline, statuses, reminderTime, documents  } = req.body;
         const todoData = {
             newTodo: req.body.newTodo,
