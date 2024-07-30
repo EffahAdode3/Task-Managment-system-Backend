@@ -1,6 +1,7 @@
 import { createTodo, getCreatedToDos, findTodoById, updateTodoStatus, updateTodo, deleteTodo, getTasksByCategory} from '../services/todoService.js';
 import {getSharedToDos} from '../services/shareService.js'
 import { getUserById } from '../services/userService.js';
+import path from 'path'
 
 const createTodoController = async (req, res) => {
     try {
@@ -15,6 +16,7 @@ const createTodoController = async (req, res) => {
             client_Id_As_Foreignkey,
             statuses,
             reminderTime,
+            documents: JSON.stringify(req.files.map(file => file.path)),
         };
 
         const createtodo = await createTodo(todoData);

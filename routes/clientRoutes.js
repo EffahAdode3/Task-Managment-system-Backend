@@ -5,6 +5,7 @@ import shareController from "../controllers/shareController.js";
 import auth from "../middleware/auth.js";
 import uploadExcel from "../utils/uploadExcel.js";
 import multer from 'multer';
+import uploadDoc from "../utils/uploadDoc.js";
 
 const storage =  multer.memoryStorage()
 const upload = multer({storage:storage})
@@ -12,7 +13,7 @@ const upload = multer({storage:storage})
 const router = express.Router();
 router.post('/createuser', userController.SignUpClient);
 router.post('/login', auth.loginMiddleware, userController.loginController);
-router.post('/todoList', auth.tokenVerification, todoController.createTodoController );
+router.post('/todoList', auth.tokenVerification, uploadDoc, todoController.createTodoController );
 router.get('/getAllToDo', auth.tokenVerification, todoController.getAllToDoList);
 router.put('/updateStatus/:id', auth.tokenVerification, todoController.updateStatus);
 router.put('/Updateatodo/:id', auth.tokenVerification, todoController.updateTodoController);
@@ -23,6 +24,7 @@ router.get('/getTOdoByCategory/:category', auth.tokenVerification, todoControlle
 router.post('/forgetPassword', userController.passwordRestLink)
 router.post('/uploadexcel', upload.single('file'), uploadExcel);
 router.post('/resetPassword/:token', userController.restPassword )
+
  export default router;
 
 
