@@ -14,5 +14,13 @@ const Sequelize = new sequelize(
         dialect: 'mysql', 
         dialectModule: mysql2,
         logging: false
-});
+}
+
+// {
+//     host: 'localhost',
+//     dialect:"mysql", 
+//     logging:false
+// }
+
+);
 export default Sequelize

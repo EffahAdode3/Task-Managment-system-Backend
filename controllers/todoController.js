@@ -16,6 +16,8 @@ const createTodoController = async (req, res) => {
             statuses: req.body.statuses,
             reminderTime: req.body.reminderTime,
             documents: JSON.stringify(req.files.map(file => file.path)),
+            // documents: req.file ? JSON.stringify([req.file.path]) : null,
+        //    documents: req.file.path, 
         };
         const createtodo = await createTodo(todoData);
         if (createtodo) {

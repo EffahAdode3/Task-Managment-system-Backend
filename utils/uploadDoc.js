@@ -1,9 +1,22 @@
 import multer from 'multer';
 import path from 'path'
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Ensure the upload directory exists
+const uploadDir = path.join(__dirname, '../uploadfolder');
+// if (!fs.existsSync(uploadDir)) {
+//     fs.mkdirSync(uploadDir, { recursive: true });
+// }
 
 const stortage = multer.diskStorage({
     destination:(req,file,cb)=>{
-        cb(null, '../uploadfolder')
+        cb(null, uploadDir )
     },
     filename:(req, file, cb) =>{
        cb(null, Date.now() + path.extname(file.originalname))
@@ -23,7 +36,7 @@ const stortage = multer.diskStorage({
         cb("Give proper files fromate to upload")
         console.log("Give proper files");
     }
-  }).array('docu')
+  }).array('docu',20)
 
 
   export default upload;
