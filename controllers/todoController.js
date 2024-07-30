@@ -1,7 +1,7 @@
 import { createTodo, getCreatedToDos, findTodoById, updateTodoStatus, updateTodo, deleteTodo, getTasksByCategory} from '../services/todoService.js';
 import {getSharedToDos} from '../services/shareService.js'
 import { getUserById } from '../services/userService.js';
-import path from 'path'
+// import path from 'path'
 
 const createTodoController = async (req, res) => {
     try {
