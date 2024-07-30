@@ -13,8 +13,8 @@ const upload = multer({storage:storage})
 const router = express.Router();
 router.post('/createuser', userController.SignUpClient);
 router.post('/login', auth.loginMiddleware, userController.loginController);
-// router.post('/todoList', auth.tokenVerification, uploadDoc, todoController.createTodoController );
-router.post('/todoList', uploadDoc, todoController.createTodoController );
+router.post('/todoList', auth.tokenVerification, uploadDoc, todoController.createTodoController );
+// router.post('/todoList', uploadDoc, todoController.createTodoController );
 router.get('/getAllToDo', auth.tokenVerification, todoController.getAllToDoList);
 router.put('/updateStatus/:id', auth.tokenVerification, todoController.updateStatus);
 router.put('/Updateatodo/:id', auth.tokenVerification, todoController.updateTodoController);
