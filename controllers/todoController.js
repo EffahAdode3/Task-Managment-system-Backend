@@ -7,14 +7,14 @@ const createTodoController = async (req, res) => {
     try {
         const client_Id_As_Foreignkey = req.Client_id;
         console.log(client_Id_As_Foreignkey);
-        const { newTodo, category, deadline, statuses, reminderTime, documents  } = req.body;
+        // const { newTodo, category, deadline, statuses, reminderTime, documents  } = req.body;
         const todoData = {
-            newTodo,
-            category,
-            deadline,
-            client_Id_As_Foreignkey,
-            statuses,
-            reminderTime,
+            newTodo: req.body.newTodo,
+            category: req.body.category,
+            deadline: req.body.deadline,
+            client_Id_As_Foreignkey:req.body.client_Id_As_Foreignkey,
+            statuses: req.body.statuses,
+            reminderTime: req.body.reminderTime,
             documents: JSON.stringify(req.files.map(file => file.path)),
         };
         const createtodo = await createTodo(todoData);
