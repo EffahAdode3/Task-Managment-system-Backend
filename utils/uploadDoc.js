@@ -3,7 +3,7 @@ import path from 'path'
 
 const stortage = multer.diskStorage({
     destination:(req,file,cb)=>{
-        cb(null, '../uloadedfilenow')
+        cb(null, '../services')
     },
     filename:(req, file, cb) =>{
        cb(null, Date.now() + path.extname(file.originalname))
