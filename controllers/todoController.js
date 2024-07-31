@@ -15,9 +15,9 @@ const createTodoController = async (req, res) => {
             client_Id_As_Foreignkey,
             statuses,
             reminderTime,
-            // documents: JSON.stringify(req.files.map(file => file.path)),
+            documents: JSON.stringify(req.files.map(file => file.path)),
             // documents: req.file ? JSON.stringify([req.file.path]) : null,
-           documents: req.file.path, 
+        //    documents: req.file.path, 
         };
         // newTodo: req.body.newTodo,
         // category: req.body.category,
