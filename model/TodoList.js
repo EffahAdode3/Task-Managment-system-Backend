@@ -1,6 +1,6 @@
 import sequelize from "../db/dbConfi.js";
 import DataType from "sequelize";
-import Client from "./clientModel.js";
+// import Client from "./clientModel.js";
 const Todolist = sequelize.define(
   "TodoList",
   {

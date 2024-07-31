@@ -55,9 +55,6 @@ const searchEmailController = async (req, res) => {
     }
 };
 
-
-
-
 const passwordRestLink = async (req, res) => {
     try {
       const { email } = req.body;
@@ -84,7 +81,6 @@ const passwordRestLink = async (req, res) => {
   };
 
   
-
 const restPassword = async (req, res) => {
     try {
       const token = req.params.token; // Directly access token without destructuring
@@ -125,17 +121,14 @@ const checkReminders = async () => {
                 const text = `This is a reminder for your to-do: "${newTodo}" which is due on   ${ new Date(deadline).toDateString() }.`;      
 
                 await sendReminderEmail(client.email, subject, text);
-                console.log(client);
-        
+                console.log(client);    
             }
-    
         }
     } catch (error) {
         console.error('Error checking reminders:', error);
         throw new Error(`Error checking reminders: ${error.message}`);
     }
 };
-
 setInterval(checkReminders, 43200000);
 // setInterval(checkReminders, 60000);
 
