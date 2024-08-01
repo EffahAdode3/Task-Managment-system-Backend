@@ -37,6 +37,4 @@ const stortage = multer.diskStorage({
         console.log("Give proper files");
     }
   }).single('documents')
-
-
   export default upload;
