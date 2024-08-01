@@ -15,10 +15,14 @@ const createTodoController = async (req, res) => {
             client_Id_As_Foreignkey,
             statuses,
             reminderTime,
-            documents: JSON.stringify(req.files.map(file => file.path)),
+            // documents: JSON.stringify(req.files.map(file => file.path)),
             // documents: req.file ? JSON.stringify([req.file.path]) : null,
         //    documents: req.file.path, 
         };
+
+        if (req.file) {
+            todoData.documents = req.file.path;
+          }
         // newTodo: req.body.newTodo,
         // category: req.body.category,
         // deadline: req.body.deadline,
@@ -158,10 +162,6 @@ const getTodoByCategoryController = async (req, res) => {
         return res.status(500).json({ error: 'An error occurred while fetching tasks' });
     }
 };
-
-
-
-
 
 export default {createTodoController, getAllToDoList, updateStatus, 
     updateTodoController, deleteTodoController, getTodoByCategoryController };
