@@ -35,5 +35,4 @@ export const shareTodoList = async (clientIds, todoListId, createdBy) => {
         throw new Error('Error sharing to-do list' );
     }
 };
-
 export default { getSharedToDos, shareTodoList}
