@@ -1,5 +1,5 @@
 import Todolist from '../model/TodoList.js';
-
+import path from 'path'
  export const createTodo = async (todoData) => {
     try {
         return await Todolist.create(todoData);
@@ -21,7 +21,22 @@ export const getCreatedToDos = async (clientId) => {
         throw new Error('Error fetching created to-dos');
     }
 };
-
+// export const getCreatedToDos = async (clientId) => {
+//     try {
+//       const todos = await Todolist.findAll({
+//         where: { client_Id_As_Foreignkey: clientId },
+//         order: [['deadline', 'ASC']]
+//       });
+//       // Add document URLs to the response
+//       return todos.map(todo => ({
+//         ...todo,
+//         documents: todo.documents ? `/uploads/${path.basename(todo.documents)}` : null
+//       }));
+//     } catch (error) {
+//       console.error('Error fetching created to-dos', error);
+//       throw new Error('Error fetching created to-dos');
+//     }
+//   };
 
 
 export const findTodoById = async (id) => {
@@ -73,18 +88,19 @@ export const deleteTodo = async (todo) => {
 };
 
 
+
 export const getTasksByCategory = async (clientId, category) => {
     try {
         const tasks = await Todolist.findAll({
             where: {
-                client_id: clientId,
+                client_Id_As_Foreignkey: clientId,
                 category: category,
             },
             order: [['deadline', 'ASC']]
         });
         return tasks;
     } catch (error) {
-        console.error('Error fetching tasks by category', error);
+        console.error('Error fetching tasks by category:', error.message, error.stack);
         throw new Error('Error fetching tasks by category');
     }
 };

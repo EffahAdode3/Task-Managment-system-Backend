@@ -7,19 +7,22 @@ import { dirname } from 'path';
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
+const uploadFolder = "uploadfolder"
 // Ensure the upload directory exists
-const uploadDir = path.join(__dirname, '../uploadfolder');
+const uploadDir = path.join(__dirname, '../'+ uploadFolder);
 // if (!fs.existsSync(uploadDir)) {
 //     fs.mkdirSync(uploadDir, { recursive: true });
 // }
 
 const stortage = multer.diskStorage({
     destination:(req,file,cb)=>{
+        req.body['uploadDir'] = uploadFolder
         cb(null, uploadDir )
     },
     filename:(req, file, cb) =>{
-       cb(null, Date.now() + path.extname(file.originalname))
+        var filename =  Date.now() + path.extname(file.originalname)
+        req.body['filename'] = filename
+       cb(null,filename)
     }
   })
   const upload = multer({ 
@@ -37,4 +40,4 @@ const stortage = multer.diskStorage({
         console.log("Give proper files");
     }
   }).single('documents')
-  export default upload;
+  export default  upload;

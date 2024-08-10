@@ -30,12 +30,19 @@ const Todolist = sequelize.define(
       type: DataType.DATE,
       allowNull: false,
     },
-    documents:{
-      type: DataType.TEXT,
-      allowNull: true,
-   },
+  //   documents:{
+  //     type: DataType.TEXT,
+  //     allowNull: true,
+  //  },
+  documents: {
+    type: DataType.STRING,
+    allowNull: true
+  },
+  fileName:{
+    type: DataType.STRING,
+    allowNull: true
+  }
   },
   { timestamps: true }
 );
-
 export default Todolist;

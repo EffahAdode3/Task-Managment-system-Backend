@@ -10,12 +10,11 @@ import dotenv from "dotenv";
 const app = express();
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-app.use( express.static(path.join(__dirname, 'uploadedDoc')));
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+app.use('/uploadfolder', express.static(path.join(__dirname, './uploadfolder')));
 const port = process.env.Port;
 app.use('/', Routes);
 try {

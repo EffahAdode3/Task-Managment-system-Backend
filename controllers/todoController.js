@@ -1,13 +1,13 @@
 import { createTodo, getCreatedToDos, findTodoById, updateTodoStatus, updateTodo, deleteTodo, getTasksByCategory} from '../services/todoService.js';
 import {getSharedToDos} from '../services/shareService.js'
 import { getUserById } from '../services/userService.js';
-// import path from 'path'
+import path from 'path'
 
 const createTodoController = async (req, res) => {
     try {
         const client_Id_As_Foreignkey = req.Client_id;
         console.log(client_Id_As_Foreignkey);
-        const { newTodo, category, deadline, statuses, reminderTime } = req.body;
+        const { newTodo, category, deadline, statuses, reminderTime, fileName,filename,uploadDir } = req.body;
         const todoData = {
             newTodo,
             category,
@@ -15,13 +15,14 @@ const createTodoController = async (req, res) => {
             client_Id_As_Foreignkey,
             statuses,
             reminderTime,
+            fileName,
             // documents: JSON.stringify(req.files.map(file => file.path)),
             // documents: req.file ? JSON.stringify([req.file.path]) : null,
         //    documents: req.file.path, 
         };
 
         if (req.file) {
-            todoData.documents = req.file.path;
+            todoData.documents = uploadDir +'/'+filename;
           }
         // newTodo: req.body.newTodo,
         // category: req.body.category,
@@ -62,9 +63,10 @@ const getAllToDoList = async (req, res) => {
             ...sharedToDos
         ];
 
-        // Sort the combined list by deadline
-        allToDoList.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
+console.log(allToDoList, 'fdasdfsdfasdfsdfsdfsdf')
+     
+        allToDoList.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
         if (allToDoList.length === 0) {
             return res.status(409).json({ message: 'No To Do List found' });
         } else {
