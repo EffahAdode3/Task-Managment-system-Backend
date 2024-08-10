@@ -82,15 +82,12 @@ console.log(allToDoList, 'fdasdfsdfasdfsdfsdfsdf')
 const updateStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
-
     try {
         const todo = await findTodoById(id);
         if (!todo) {
             return res.status(404).json({ message: 'To-Do id not found' });
         }
-
         const updatedTodo = await updateTodoStatus(todo, status);
-
         res.json({ message: 'Status updated', todo: updatedTodo });
     } catch (error) {
         console.error('Error updating status:', error);
