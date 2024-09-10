@@ -25,13 +25,13 @@ const assignShareController = async (req, res) => {
 
         // Send notification emails to users
         await Promise.all(
-            users.map(user => sendNotificationEmail(user.email, todoList.newTodo))
+            users.map(user => sendNotificationEmail(user.email, createdBy.email, todoList.newTodo))
         );
 
         if (shareTodos.length > 0) {
             return res.status(201).json({ message: "To-Do list shared successfully", shareTodos });
         }
-    } catch (error) {
+        } catch (error) {
         if (error.errors && error.errors.length > 0) {
             // Log validation errors
             error.errors.forEach(err => {

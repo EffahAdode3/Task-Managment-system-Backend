@@ -21,22 +21,6 @@ export const getCreatedToDos = async (clientId) => {
         throw new Error('Error fetching created to-dos');
     }
 };
-// export const getCreatedToDos = async (clientId) => {
-//     try {
-//       const todos = await Todolist.findAll({
-//         where: { client_Id_As_Foreignkey: clientId },
-//         order: [['deadline', 'ASC']]
-//       });
-//       // Add document URLs to the response
-//       return todos.map(todo => ({
-//         ...todo,
-//         documents: todo.documents ? `/uploads/${path.basename(todo.documents)}` : null
-//       }));
-//     } catch (error) {
-//       console.error('Error fetching created to-dos', error);
-//       throw new Error('Error fetching created to-dos');
-//     }
-//   };
 
 
 export const findTodoById = async (id) => {
