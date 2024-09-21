@@ -10,17 +10,18 @@ const transporter = nodemailer.createTransport({
         pass: process.env.PASS
     }
 });
-
 const sendNotificationEmail = async (email, create_By_email, newTodo) => {
     const mailOptions = {
         from: create_By_email,
+        replyTo: create_By_email,
         to: email,
         subject: 'You have been assigned a new To-Do List',
-        text: `You have been assigned to the To-Do list titled "${newTodo}". Please check your dashboard for more details.`,
+        text: ` "${newTodo}". 
+        Please check your dashboard for more details.`,
     };
     try {
         await transporter.sendMail(mailOptions);
-        console.log(`Notification email sent to ${email, create_By_email}`);
+        console.log(`Notification email sent to ${email}`);
     } catch (error) {
         console.error(`Error sending email to ${email}:`, error.message);
     
