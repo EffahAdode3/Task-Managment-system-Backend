@@ -3,24 +3,20 @@ import {findTodoById} from '../services/todoService.js'
 import {shareTodoList} from '../services/shareService.js'
 import { sendNotificationEmail } from '../utils/emailUtils.js'; 
 
-
 const assignShareController = async (req, res) => {
     try {
         const create_By_email = req.Client_email;
         const createdBy = req.Client_id;
         const todoId = req.params.todoId;
         const emails = req.body.emails;
-
         // Find users by email
         const users = await findUsersByEmails(emails);
         const clientIds = users.map(user => user.id);
-
         // Find the to-do list by ID
         const todoList = await findTodoById(todoId);
         if (!todoList) {
             return res.status(404).json({ message: 'Todo not found' });
         }
-
         // Create share records for each user
         const shareTodos = await shareTodoList(clientIds, todoList.id, createdBy);
 
@@ -28,7 +24,6 @@ const assignShareController = async (req, res) => {
         await Promise.all(
             users.map(user => sendNotificationEmail(user.email, create_By_email, todoList.newTodo))
         );
-
         if (shareTodos.length > 0) {
             return res.status(201).json({ message: "To-Do list shared successfully", shareTodos });
         }
@@ -46,5 +41,4 @@ const assignShareController = async (req, res) => {
         }
     }
 };
-
 export default {assignShareController}

@@ -20,7 +20,7 @@ const sendNotificationEmail = async (email, create_By_email, newTodo) => {
     };
     try {
         await transporter.sendMail(mailOptions);
-        console.log(`Notification email sent to ${email}`);
+        console.log(`Notification email sent to ${email, create_By_email}`);
     } catch (error) {
         console.error(`Error sending email to ${email}:`, error.message);
     
