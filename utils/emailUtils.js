@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 const sendNotificationEmail = async (email, create_By_email, newTodo) => {
     const mailOptions = {
-        from: create_By_email,
+        // from: create_By_email,
         replyTo: create_By_email,
         to: email,
         subject: 'You have been assigned a new To-Do List',
