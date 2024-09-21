@@ -45,6 +45,7 @@ const tokenVerification = async (req, res, next) => {
 
       const verifiedToken = verifyToken(tokenInHeader);
       req.Client_id = verifiedToken.id;
+      req.Client_email = verifiedToken.email;
 
       next();
   } catch (error     ) {

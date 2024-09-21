@@ -6,6 +6,7 @@ import { sendNotificationEmail } from '../utils/emailUtils.js';
 
 const assignShareController = async (req, res) => {
     try {
+        const create_By_email = req.Client_email;
         const createdBy = req.Client_id;
         const todoId = req.params.todoId;
         const emails = req.body.emails;
@@ -25,7 +26,7 @@ const assignShareController = async (req, res) => {
 
         // Send notification emails to users
         await Promise.all(
-            users.map(user => sendNotificationEmail(user.email, createdBy.email, todoList.newTodo))
+            users.map(user => sendNotificationEmail(user.email, create_By_email, todoList.newTodo))
         );
 
         if (shareTodos.length > 0) {

@@ -11,9 +11,9 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const sendNotificationEmail = async (  email, createdBy, newTodo) => {
+const sendNotificationEmail = async (email, create_By_email, newTodo) => {
     const mailOptions = {
-        from: createdBy,
+        from: create_By_email,
         to: email,
         subject: 'You have been assigned a new To-Do List',
         text: `You have been assigned to the To-Do list titled "${newTodo}". Please check your dashboard for more details.`,

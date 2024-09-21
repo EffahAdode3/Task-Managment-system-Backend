@@ -9,7 +9,6 @@ import path from 'path'
     }
 };
 
-
 export const getCreatedToDos = async (clientId) => {
     try {
         return await Todolist.findAll({
@@ -21,7 +20,6 @@ export const getCreatedToDos = async (clientId) => {
         throw new Error('Error fetching created to-dos');
     }
 };
-
 
 export const findTodoById = async (id) => {
     try {
@@ -72,7 +70,6 @@ export const deleteTodo = async (todo) => {
 };
 
 
-
 export const getTasksByCategory = async (clientId, category) => {
     try {
         const tasks = await Todolist.findAll({
@@ -88,8 +85,6 @@ export const getTasksByCategory = async (clientId, category) => {
         throw new Error('Error fetching tasks by category');
     }
 };
-
-
 
 export default {  getCreatedToDos,  createTodo, findTodoById, 
     updateTodoStatus, updateTodo, deleteTodo,   getTasksByCategory };

@@ -122,4 +122,5 @@ export const updateClientPassword = async (token, newPassword) => {
    
 
 export default { searchClientsByEmail, findUsersByEmails,
-     getUserById, generateResetToken, updateClientResetToken, updateClientPassword, getUserByResetToken}
+getUserById, generateResetToken, updateClientResetToken,
+updateClientPassword, getUserByResetToken}
