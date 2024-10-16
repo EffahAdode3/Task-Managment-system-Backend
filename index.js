@@ -41,8 +41,7 @@ import Routes from './routes/clientRoutes.js';
 import dotenv from "dotenv";
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { handleSocketConnection } from './socket.js'; // Import socket logic
-
+import { handleSocketConnection } from './utils/socket.js'; // Import socket logic
 dotenv.config();
 const app = express();
 
