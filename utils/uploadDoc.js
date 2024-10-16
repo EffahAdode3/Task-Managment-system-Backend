@@ -29,7 +29,7 @@ const stortage = multer.diskStorage({
     storage:stortage,
     limits:{fileSize:'1000000'},
     fileFilter:(req, file, cb, ) => {
-        const fileType =   /pdf|doc|xls|ppt|jpeg|jpg|png|csv|gif/                                   
+        const fileType =   /pdf|doc|xls|ppt|jpeg|jpg|png|csv|txt|svg|gif/                               
     //     /jpeg|jpg|png|gif/
         const mimeType = fileType.test(file.mimetype)
         const extname = fileType.test(path.extname(file.originalname))

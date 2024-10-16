@@ -28,7 +28,6 @@ const sendNotificationEmail = async (email, create_By_email, newTodo) => {
     }
 };
 
-
 const sendReminderEmail = async (to, subject, text) => {
     try {
         const mailOptions = {
