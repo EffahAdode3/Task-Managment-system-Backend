@@ -4,7 +4,6 @@ import DataType from "sequelize";
 import Client from "./clientModel.js";
 import Todolist from "./TodoList.js";
 import Message from "./message.js";
-
 const Share = sequelize.define("Share", {
   id: {
     type: DataType.INTEGER,
