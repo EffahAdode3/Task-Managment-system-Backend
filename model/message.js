@@ -25,7 +25,7 @@ const Message = sequelize.define('Message', {
     },
   },
   message: {
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: false,
   },
   timestamp: {
