@@ -11,18 +11,18 @@ const Message = sequelize.define('Message', {
   senderId: {
     type: DataType.INTEGER,
     allowNull: false,
-    references: {
-      model: Client,
-      key: 'id',
-    },
+    // references: {
+    //   model: Client,
+    //   key: 'id',
+    // },
   },
   receiverId: {
     type: DataType.INTEGER,
     allowNull: false,
-    references: {
-      model: Client,
-      key: 'id',
-    },
+    // references: {
+    //   model: Client,
+    //   key: 'id',
+    // },
   },
   message: {
     type: DataType.STRING,
