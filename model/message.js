@@ -1,6 +1,6 @@
 import sequelize from "../db/dbConfi.js"
 import  DataType  from 'sequelize';
-// import Client from './clientModel.js';
+import Client from './clientModel.js';
 const Message = sequelize.define('Message', {
   id: {
     type: DataType.UUID,
