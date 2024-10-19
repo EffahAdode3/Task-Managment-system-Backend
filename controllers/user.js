@@ -64,10 +64,31 @@ const createMessage = async (req, res) => {
 };
 
 
+const getMessagesBetweenUsers = async (req, res) => {
+  const { currentUserId, chatPartnerId } = req.params;
+
+  try {
+    // Find messages where either currentUserId sent the message to chatPartnerId or vice versa
+    const messages = await Message.findAll({
+      where: {
+        [Op.or]: [
+          { fromEmail: currentUserId, toEmail: chatPartnerId },
+          { fromEmail: chatPartnerId, toEmail: currentUserId }
+        ]
+      },
+      order: [['createdAt', 'ASC']], // Sort by createdAt in ascending order
+    });
+
+    res.status(200).json({ messages });
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+    res.status(500).json({ error: 'Failed to fetch messages' });
+  }
+};
 
 
 
 
 
 
-export default {removeUser, getUserByEmail, addUser, createMessage}
+export default {removeUser, getUserByEmail, addUser, createMessage, getMessagesBetweenUsers}

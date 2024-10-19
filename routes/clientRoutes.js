@@ -27,6 +27,7 @@ router.post('/forgetPassword', userController.passwordRestLink)
 router.post('/uploadexcel', upload.single('file'), uploadExcel);
 router.post('/resetPassword/:token', userController.restPassword )
 router.post('/api/messages', user.createMessage);
+router.get('/api/messages/:currentUserId/:chatPartnerId', user.getMessagesBetweenUsers);
 
  export default router;
 
