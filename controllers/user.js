@@ -1,5 +1,6 @@
 import Client from "../model/clientModel.js";
 import Message from "../model/message.js";
+import { Op } from "sequelize";
 
 // Object to store active users and their socket IDs
 const users = {};
