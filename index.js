@@ -34,6 +34,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import sequelize from "./db/dbConfi.js";
 import cors from 'cors';
+import http from 'http';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
