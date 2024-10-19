@@ -1,5 +1,5 @@
+import sequelize from "../db/dbConfi.js"
 import { DataTypes } from 'sequelize';
-import sequelize from '../config/database.js'; // Your Sequelize instance
 import Client from './clientModel.js';
 
 const Message = sequelize.define('Message', {
