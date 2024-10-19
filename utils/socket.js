@@ -1,6 +1,5 @@
 
-import { Message } from '../model/message.js'; // Import the Message model
-
+import Message  from '../model/message.js'; 
 export const socketHandler = (io) => {
   // Handle new socket connection
   io.on('connection', (socket) => {
