@@ -8,27 +8,27 @@ const Todolist = sequelize.define(
       type: DataType.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-      allowNull: true,
+      allowNull: false,
     },
     newTodo: {
       type: DataType.TEXT,
-      allowNull: true,
+      allowNull: false,
     },
     category: {
       type: DataType.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     deadline: {
       type: DataType.DATE,
-      allowNull: true,
+      allowNull: false,
     },
     statuses: {
       type: DataType.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     reminderTime: {
       type: DataType.DATE,
-      allowNull: true,
+      allowNull: false,
     },
   //   documents:{
   //     type: DataType.TEXT,
