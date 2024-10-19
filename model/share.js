@@ -57,6 +57,7 @@ Client.hasMany(Message, { foreignKey: 'receiverId', as: 'receivedMessages' });
 
 Message.belongsTo(Client, { foreignKey: 'senderId', as: 'sender' });
 Message.belongsTo(Client, { foreignKey: 'receiverId', as: 'receiver' });
+
 export default Share;
 
 
