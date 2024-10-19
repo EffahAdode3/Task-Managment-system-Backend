@@ -28,6 +28,41 @@ export const removeUser = (socketId) => {
   }
 };
 
+const createMessage = async (req, res) => {
+  const { senderId, receiverId, message } = req.body;
+
+  try {
+      // Ensure sender and receiver exist
+      const sender = await Client.findByPk(senderId);
+      const receiver = await Client.findByPk(receiverId);
+
+      if (!sender || !receiver) {
+          return res.status(404).json({ error: 'Sender or Receiver not found' });
+      }
+
+      // Create a new message
+      const newMessage = await Message.create({
+          senderId,
+          receiverId,
+          message,
+      });
+
+      // Emit the message to the recipient
+      const recipientSocket = getUserByEmail(receiverId); // Make sure to adjust this if needed
+      if (recipientSocket) {
+          io.to(recipientSocket).emit('receiveMessage', {
+              fromEmail: sender.email,  // You may need to fetch the email based on senderId
+              message: newMessage.message,
+          });
+      }
+
+      res.status(201).json(newMessage);
+  } catch (error) {
+      console.error('Error saving message:', error);
+      res.status(500).json({ error: 'Failed to save message' });
+  }
+};
+
 
 // Function to handle message creation
 
