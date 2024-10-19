@@ -8,19 +8,19 @@ const Client = sequelize.define(
       type: DataType.UUID,
       defaultValue: DataType.UUIDV4,
       primaryKey: true,
-      allowNull: true,
+      allowNull: false,
     },
     userName: {
       type: DataType.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     email: {
       type: DataType.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     password: {
       type: DataType.STRING,
-      allowNull: true,
+      allowNull: false,
     }, 
     ResetToken: {
       type: DataType.STRING,
