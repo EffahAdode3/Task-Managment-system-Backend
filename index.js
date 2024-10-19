@@ -67,9 +67,6 @@ app.use('/', Routes);
 
 
 // Socket.io Setup
-
-
-import { Server } from 'socket.io';
 const io = new Server(server, { cors: { origin: '*' } });
 socketHandler(io);  // Pass the io instance to the socket handler
 // Database connection and server start
