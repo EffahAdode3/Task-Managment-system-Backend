@@ -1,4 +1,4 @@
-// socketHandler.js
+
 import { Message } from '../model/message.js'; // Import the Message model
 
 export const socketHandler = (io) => {
