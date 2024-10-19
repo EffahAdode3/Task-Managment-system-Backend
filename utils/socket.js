@@ -1,33 +1,30 @@
-import { addUser, getUserByEmail, removeUser } from '../controllers/user.js';
+// socketHandler.js
+import { Message } from '../model/message.js'; // Import the Message model
 
-// Handles socket connection and events
-export const handleSocketConnection = (io, socket) => {
-  console.log(`A user connected: ${socket.id}`);
+export const socketHandler = (io) => {
+  // Handle new socket connection
+  io.on('connection', (socket) => {
+    console.log('A user connected');
 
-  // When a user joins with their email and user ID
-  socket.on('joinChat', ({ userEmail, userId }) => {
-    addUser(userEmail, socket.id, userId);  // Add user to the active users list with ID
-    console.log(`${userEmail} joined the chat with socket ${socket.id}`);
-  });
+    // Join chat event when a user connects
+    socket.on('joinChat', (email) => {
+      console.log(`${email} joined the chat`);
+    });
 
-  // Handle sending messages
-  socket.on('sendMessage', ({ fromEmail, toEmail, message, userId }) => {
-    const recipientSocket = getUserByEmail(toEmail, userId);  // Find recipient by email and ID
+    // Handle sending messages
+    socket.on('sendMessage', async (data) => {
+      const { senderId, receiverId, message, fromEmail } = data;
 
-    if (recipientSocket) {
-      // Emit message to the recipient
-      io.to(recipientSocket).emit('receiveMessage', {
-        fromEmail,
-        message,
-      });
-    } else {
-      console.log(`User with email ${toEmail} not found.`);
-    }
-  });
+      // Save the message to the database
+      await Message.create({ senderId, receiverId, message });
 
-  // Handle disconnection
-  socket.on('disconnect', () => {
-    console.log(`User disconnected: ${socket.id}`);
-    removeUser(socket.id);  // Remove user when they disconnect
+      // Emit the message to the receiver
+      io.emit('receiveMessage', { fromEmail, message });
+    });
+
+    // Handle disconnection
+    socket.on('disconnect', () => {
+      console.log('User disconnected');
+    });
   });
 };

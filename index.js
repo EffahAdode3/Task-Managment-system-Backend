@@ -39,12 +39,14 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import Routes from './routes/clientRoutes.js';
 import dotenv from "dotenv";
-import { createServer } from 'http';
+import { socketHandler } from './utils/socket.js'
 import { Server } from 'socket.io';
-import { handleSocketConnection } from './utils/socket.js'; // Import socket logic
+
 dotenv.config();
 const app = express();
+// Initialize Express app and HTTP server
 
+const server = http.createServer(app)
 // Middleware
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
@@ -62,21 +64,14 @@ const port = process.env.PORT || 3000;
 app.use('/', Routes);
 
 // Create HTTP server for Socket.io to work with
-const server = createServer(app);
+
 
 // Socket.io Setup
-const io = new Server(server, {
-  cors: {
-    origin: "*", // Allow all origins (you can restrict this to your frontend URL)
-    methods: ["GET", "POST"]
-  }
-});
 
-// Handle socket connections
-io.on('connection', (socket) => {
-  handleSocketConnection(io, socket);
-});
 
+import { Server } from 'socket.io';
+const io = new Server(server, { cors: { origin: '*' } });
+socketHandler(io);  // Pass the io instance to the socket handler
 // Database connection and server start
 (async () => {
   try {
