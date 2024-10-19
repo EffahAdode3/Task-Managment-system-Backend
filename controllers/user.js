@@ -1,5 +1,5 @@
-import Client from "../model/clientModel";
-import Message from "../model/message";
+import Client from "../model/clientModel.js";
+import Message from "../model/message.js";
 
 // Object to store active users and their socket IDs
 const users = {};
