@@ -9,20 +9,20 @@ const Message = sequelize.define('Message', {
       allowNull: false,
   },
   senderId: {
-    type: DataType.INTEGER,
+    type: DataType.UUID,  // Change to UUID to match Client.id
     allowNull: false,
-    // references: {
-    //   model: Client,
-    //   key: 'id',
-    // },
+    references: {
+      model: Client,
+      key: 'id',
+    },
   },
   receiverId: {
-    type: DataType.INTEGER,
+    type: DataType.UUID,  // Change to UUID to match Client.id
     allowNull: false,
-    // references: {
-    //   model: Client,
-    //   key: 'id',
-    // },
+    references: {
+      model: Client,
+      key: 'id',
+    },
   },
   message: {
     type: DataType.STRING,
