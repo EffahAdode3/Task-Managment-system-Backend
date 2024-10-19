@@ -2,6 +2,7 @@ import  express  from "express";
 import userController from "../controllers/userController.js";
 import todoController from "../controllers/todoController.js";
 import shareController from "../controllers/shareController.js";
+import user from "../controllers/user.js";
 import auth from "../middleware/auth.js";
 import uploadExcel from "../utils/uploadExcel.js";
 import multer from 'multer';
@@ -25,6 +26,7 @@ router.get('/getTOdoByCategory/:category', auth.tokenVerification, todoControlle
 router.post('/forgetPassword', userController.passwordRestLink)
 router.post('/uploadexcel', upload.single('file'), uploadExcel);
 router.post('/resetPassword/:token', userController.restPassword )
+router.post('/api/messages', user.createMessage);
 
  export default router;
 
