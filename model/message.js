@@ -1,15 +1,15 @@
 import sequelize from "../db/dbConfi.js"
-import { DataTypes } from 'sequelize';
-import Client from './clientModel.js';
-
+import  DataType  from 'sequelize';
+// import Client from './clientModel.js';
 const Message = sequelize.define('Message', {
   id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+    type: DataType.UUID,
+      defaultValue: DataType.UUIDV4,
+      primaryKey: true,
+      allowNull: false,
   },
   senderId: {
-    type: DataTypes.INTEGER,
+    type: DataType.INTEGER,
     allowNull: false,
     references: {
       model: Client,
@@ -17,7 +17,7 @@ const Message = sequelize.define('Message', {
     },
   },
   receiverId: {
-    type: DataTypes.INTEGER,
+    type: DataType.INTEGER,
     allowNull: false,
     references: {
       model: Client,
@@ -25,18 +25,12 @@ const Message = sequelize.define('Message', {
     },
   },
   message: {
-    type: DataTypes.STRING,
+    type: DataType.STRING,
     allowNull: false,
   },
   timestamp: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
   },
 });
-// Define associations
-Client.hasMany(Message, { foreignKey: 'senderId', as: 'sentMessages' });
-Client.hasMany(Message, { foreignKey: 'receiverId', as: 'receivedMessages' });
-Message.belongsTo(Client, { foreignKey: 'senderId', as: 'sender' });
-Message.belongsTo(Client, { foreignKey: 'receiverId', as: 'receiver' });
-
 export default Message;

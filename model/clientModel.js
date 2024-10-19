@@ -1,6 +1,5 @@
 import sequelize from "../db/dbConfi.js";
 import DataType from "sequelize";
-
 const Client = sequelize.define(
   "Client",
   {
