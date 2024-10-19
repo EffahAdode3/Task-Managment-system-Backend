@@ -10,7 +10,7 @@ const uploadExcel = async(req,res)=>{
         const jsonBody = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]])
         console.log('Number of rows:', jsonBody.length);
         for(let row of jsonBody){   
-            await Client.create(row)         
+            await Todolist.create(row)         
         }
         return res.status(200).json({message:"success"})
     }catch(error){
