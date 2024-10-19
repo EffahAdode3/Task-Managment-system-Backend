@@ -3,6 +3,7 @@ import sequelize from "../db/dbConfi.js";
 import DataType from "sequelize";
 import Client from "./clientModel.js";
 import Todolist from "./TodoList.js";
+import Message from "./message.js";
 
 const Share = sequelize.define("Share", {
   id: {
@@ -50,6 +51,12 @@ Client.hasMany(Share, { as: 'CreatedShares', foreignKey: 'Created_By', onDelete:
 
 Todolist.belongsTo(Client, { as: 'Owner', foreignKey: 'client_Id_As_Foreignkey', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 Client.hasMany(Todolist, { as: 'TodoLists', foreignKey: 'client_Id_As_Foreignkey', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+
+Client.hasMany(Message, { foreignKey: 'senderId', as: 'sentMessages' });
+Client.hasMany(Message, { foreignKey: 'receiverId', as: 'receivedMessages' });
+
+Message.belongsTo(Client, { foreignKey: 'senderId', as: 'sender' });
+Message.belongsTo(Client, { foreignKey: 'receiverId', as: 'receiver' });
 export default Share;
 
 
