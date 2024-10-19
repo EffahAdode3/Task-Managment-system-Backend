@@ -64,13 +64,10 @@ const createMessage = async (req, res) => {
 };
 
 
-// Function to handle message creation
 
 
 
 
 
 
-export default {
-    removeUser, getUserByEmail, addUser, createMessage
-}
+export default {removeUser, getUserByEmail, addUser, createMessage}
