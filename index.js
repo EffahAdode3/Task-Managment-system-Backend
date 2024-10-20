@@ -64,8 +64,6 @@ const port = process.env.PORT || 3000;
 // API Routes
 app.use('/', Routes);
 
-// Create HTTP server for Socket.io to work with
-
 
 // Socket.io Setup
 const io = new Server(server, { cors: { origin: '*' } });

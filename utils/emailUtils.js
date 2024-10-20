@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import Client from '../model/clientModel.js';
 dotenv.config();
 
 
@@ -71,5 +72,55 @@ const emailToRestPasswordLink = async (email, resetLink) => {
         console.error(`Error sending email to ${email}:`, error.message);  
     }
   };
+
+
+
+
+  /// New feature to register User
+
+  const sendNotificationEmailAboutNewFeature = (email) => {
+    const mailOptions = {
+      from: 'maximnyansa75@gmail.com',
+      to: email,
+      subject: 'New Features Added to the Collaboration Platform',
+      html: `
+        <h2>Exciting News!</h2>
+        <p>Dear user,</p>
+        <p>We are thrilled to inform you that new features have been added to our collaboration platform:</p>
+        <ul>
+          <li>Real-time chatting with your team</li>
+          <li>Task management – create, update, and track tasks</li>
+          <li>Collaborate more efficiently with seamless updates</li>
+        </ul>
+        <p>Log in now to explore these new features and enhance your productivity!</p>
+        <p>Best regards,<br>Your Collaboration Platform Team</p>
+      `
+    };
+  
+    return transporter.sendMail(mailOptions);
+  };
+  
+  // Function to notify all users
+  const notifyAllUsers = async () => {
+    try {
+      // Fetch all users' emails
+      const users = await Client.findAll({ attributes: ['email'] });
+      
+      // Send email to each user
+      for (const user of users) {
+        try {
+          await sendNotificationEmailAboutNewFeature(user.email);
+          console.log(`Email sent to ${user.email}`);
+        } catch (err) {
+          console.error(`Failed to send email to ${user.email}:`, err);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching users or sending emails:', error);
+    }
+  };
+  
+  // Call the function to send notifications
+  notifyAllUsers();
 
 export { sendNotificationEmail, sendReminderEmail,emailToRestPasswordLink };
