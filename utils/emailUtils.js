@@ -121,6 +121,6 @@ const emailToRestPasswordLink = async (email, resetLink) => {
   };
   
   // Call the function to send notifications
-  notifyAllUsers();
+//   notifyAllUsers();
 
 export { sendNotificationEmail, sendReminderEmail,emailToRestPasswordLink };
