@@ -83,18 +83,21 @@ const emailToRestPasswordLink = async (email, resetLink) => {
       from: 'maximnyansa75@gmail.com',
       to: email,
       subject: 'New Features Added to the Collaboration Platform',
-      html: `
-        <h2>Exciting News!</h2>
-        <p>Dear user,</p>
-        <p>We are thrilled to inform you that new features have been added to our collaboration platform:</p>
-        <ul>
-          <li>Real-time chatting with your team</li>
-          <li>Task management – create, update, and track tasks</li>
-          <li>Collaborate more efficiently with seamless updates</li>
-        </ul>
-        <p>Log in now to explore these new features and enhance your productivity!</p>
-        <p>Best regards,<br>Your Collaboration Platform Team</p>
-      `
+      html: 
+         `
+      <h2>Exciting News!</h2>
+      <p>Dear user,</p>
+      <p>We are thrilled to inform you about the new features we've added to ourTask management and  collaboration platform:</p>
+      <ul>
+        <li>Real-time chatting with your team</li>
+        <li>Task management – create, update, and track tasks</li>
+        <li>Collaborate more efficiently with seamless updates</li>
+      </ul>
+      <p>You can explore these new features by clicking the link below:</p>
+      <p><a href="https://task-magament-system.vercel.app/" target="_blank" style="color: #007bff; text-decoration: none;">Explore New Features</a></p>
+      <p>Log in now to boost your productivity with these new tools!</p>
+      <p>Best regards,<br>Your Task management and Collaboration Platform Team</p>
+    `
     };
   
     return transporter.sendMail(mailOptions);
@@ -121,6 +124,6 @@ const emailToRestPasswordLink = async (email, resetLink) => {
   };
   
   // Call the function to send notifications
-//   notifyAllUsers();
+  notifyAllUsers();
 
 export { sendNotificationEmail, sendReminderEmail,emailToRestPasswordLink };
