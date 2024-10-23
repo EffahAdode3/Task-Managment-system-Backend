@@ -73,9 +73,6 @@ const emailToRestPasswordLink = async (email, resetLink) => {
     }
   };
 
-
-
-
   /// New feature to register User
 
   const sendNotificationEmailAboutNewFeature = (email) => {
