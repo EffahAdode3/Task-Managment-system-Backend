@@ -59,6 +59,26 @@ export const socketHandler = (io) => {
       }
     });
 
+    // Handle stream offer
+    socket.on('streamOffer', (data) => {
+      const { offer, toEmail, fromEmail } = data;
+      const receiverSocketId = users[toEmail];
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('streamOffer', { offer, fromEmail });
+        console.log(`Stream offer sent from ${fromEmail} to ${toEmail}`);
+      }
+    });
+
+    // Handle stream answer
+    socket.on('streamAnswer', (data) => {
+      const { answer, toEmail, fromEmail } = data;
+      const receiverSocketId = users[toEmail];
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('streamAnswer', { answer, fromEmail });
+        console.log(`Stream answer sent from ${fromEmail} to ${toEmail}`);
+      }
+    });
+
     // Handle disconnection
     socket.on('disconnect', () => {
       console.log('User disconnected:', socket.id);
@@ -71,4 +91,3 @@ export const socketHandler = (io) => {
     });
   });
 };
-
