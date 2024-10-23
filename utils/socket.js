@@ -28,50 +28,38 @@ import Message  from '../model/message.js';
 //   });
 // };
 export const socketHandler = (io) => {
-  const users = {};
+  const users = {}; // Store connected users by their email
 
   io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
+    // Store user's socket id by email when they join
     socket.on('joinChat', (email) => {
-      console.log(`${email} joined the chat`);
       users[email] = socket.id;
+      console.log(`${email} joined the chat`);
     });
 
-    // Notify when a user starts a live stream
-    socket.on('startStream', (fromEmail) => {
-      console.log(`${fromEmail} started a live stream`);
-
-      // Notify all connected users except the streamer that a live stream is available
-      socket.broadcast.emit('streamAvailable', { fromEmail });
-    });
-
-    // Handle WebRTC signaling
-    socket.on('offer', (data) => {
-      const { offer, toEmail, fromEmail } = data;
+    // Handle live stream invite
+    socket.on('inviteToStream', (data) => {
+      const { fromEmail, toEmail } = data;
       const receiverSocketId = users[toEmail];
       if (receiverSocketId) {
-        io.to(receiverSocketId).emit('offer', { offer, fromEmail });
+        io.to(receiverSocketId).emit('receiveInvite', { fromEmail });
+        console.log(`Invitation sent from ${fromEmail} to ${toEmail}`);
       }
     });
 
-    socket.on('answer', (data) => {
-      const { answer, toEmail, fromEmail } = data;
-      const receiverSocketId = users[toEmail];
-      if (receiverSocketId) {
-        io.to(receiverSocketId).emit('answer', { answer, fromEmail });
+    // Handle live stream acceptance
+    socket.on('acceptInvite', (data) => {
+      const { fromEmail, toEmail } = data;
+      const senderSocketId = users[fromEmail];
+      if (senderSocketId) {
+        io.to(senderSocketId).emit('inviteAccepted', { toEmail });
+        console.log(`${toEmail} accepted the invite from ${fromEmail}`);
       }
     });
 
-    socket.on('candidate', (data) => {
-      const { candidate, toEmail, fromEmail } = data;
-      const receiverSocketId = users[toEmail];
-      if (receiverSocketId) {
-        io.to(receiverSocketId).emit('candidate', { candidate, fromEmail });
-      }
-    });
-
-    // Remove disconnected users
+    // Handle disconnection
     socket.on('disconnect', () => {
       console.log('User disconnected:', socket.id);
       for (let email in users) {
@@ -83,3 +71,4 @@ export const socketHandler = (io) => {
     });
   });
 };
+
