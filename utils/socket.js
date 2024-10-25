@@ -28,16 +28,19 @@
 //   });
 // };
 
-
 import Message from '../model/message.js'; 
+
+// Store connected users with their socket ids
+const connectedUsers = {};
 
 export const socketHandler = (io) => {
   // Handle new socket connection
   io.on('connection', (socket) => {
     console.log('A user connected');
 
-    // Join chat event when a user connects
+    // Track the user and their socket id when they join the chat
     socket.on('joinChat', (email) => {
+      connectedUsers[email] = socket.id;  // Save the user's email and socket id
       console.log(`${email} joined the chat`);
     });
 
@@ -48,13 +51,25 @@ export const socketHandler = (io) => {
       // Save the message to the database
       await Message.create({ senderId, receiverId, message });
 
-      // Emit the message to the receiver (broadcast to others except the sender)
-      socket.broadcast.emit('receiveMessage', { fromEmail, message });
+      // Get the socket id of the receiver
+      const receiverSocketId = connectedUsers[receiverId];  // Assuming receiverId is the email
+
+      if (receiverSocketId) {
+        // Send the message only to the receiver
+        io.to(receiverSocketId).emit('receiveMessage', { fromEmail, message });
+      }
     });
 
-    // Handle disconnection
+    // Handle disconnection and remove the user from the connected users list
     socket.on('disconnect', () => {
-      console.log('User disconnected');
+      for (let email in connectedUsers) {
+        if (connectedUsers[email] === socket.id) {
+          delete connectedUsers[email];
+          console.log(`${email} disconnected`);
+          break;
+        }
+      }
     });
   });
 };
+
