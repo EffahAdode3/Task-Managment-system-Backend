@@ -41,7 +41,7 @@ export const socketHandler = (io) => {
     // Track the user and their socket id when they join the chat
     socket.on('joinChat', (email) => {
       connectedUsers[email] = socket.id;  // Save the user's email and socket id
-      console.log(`${email} joined the chat`);
+      console.log(`${email} joined the chat, socket ID: ${socket.id}`);
     });
 
     // Handle sending messages
@@ -57,6 +57,9 @@ export const socketHandler = (io) => {
       if (receiverSocketId) {
         // Send the message only to the receiver
         io.to(receiverSocketId).emit('receiveMessage', { fromEmail, message });
+        console.log(`Message sent to ${receiverId} with socket ID ${receiverSocketId}`);
+      } else {
+        console.log(`Receiver ${receiverId} not connected.`);
       }
     });
 
@@ -72,4 +75,3 @@ export const socketHandler = (io) => {
     });
   });
 };
-
