@@ -1,19 +1,28 @@
 REST API Project
 A REST API developed using Node.js, Express, MySQL, and Sequelize. This API includes features for user authentication (registration and login), task management, and real-time chat functionality. It's designed to support dashboards for users, task management, and real-time communication.
 
-Table of Contents
+#Table of Contents
 
 Features
+
  Tech Stack
+ 
  Getting Started
+ 
  Installation
+ 
  Environment Variables
+ 
 Running the API
-API Endpoints
-Usage
-Contributing
 
-Features
+API Endpoints
+
+Usage
+
+
+
+#Features
+
 User Authentication: Login and registration.
 
 Dashboard: Access your personalized dashboard after logging in.
