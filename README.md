@@ -53,25 +53,31 @@ JWT_SECRET=your_jwt_secret
 Running the API
 npm start
 
-router.post('/createuser', userController.SignUpClient);
-router.post('/login', auth.loginMiddleware, userController.loginController);
 API Endpoints
+
 Authentication
+
 Register: POST /createuser
+
 Login: POST /login
 
 Dashboard
+
 Post Dashboard:Post /todoList
+
 Get Dashboard: GET /getAllToDo
+
 Post Dashboard: Post /assign/:todoId
 
 Task Management
+
 Update Task: PUT Updateatodo/:id
+
 Delete Task: DELETE /deleteTodo/:id
 
-
 Chat
-Send Messages and Receive: GET /messages/:userId/:chatPartnerId
+Send Messages and Receive:
+GET /messages/:userId/:chatPartnerId
 
 Usage
 You can test the API endpoints using tools like Postman or Insomnia. Make sure to set up authorization headers (e.g., Bearer Token) when accessing protected routes
