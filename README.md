@@ -15,8 +15,11 @@ Contributing
 
 Features
 User Authentication: Login and registration.
+
 Dashboard: Access your personalized dashboard after logging in.
+
 Task Management: Add, update, delete, and view tasks.
+
 Real-Time Chat: Enables real-time messaging using WebSockets.
 
 Tech Stack
