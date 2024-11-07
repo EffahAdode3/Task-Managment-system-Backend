@@ -26,19 +26,19 @@ Database: MySQL
 ORM: Sequelize
 Real-Time Communication: WebSocket or Socket.io
 
-1 Getting Started
+# Getting Started
 
-2 Prerequisites
+# Prerequisites
 Node.js (version 14.x or higher)
 MySQL
 
-3 Installation
+# Installation
 Clone the repository: 
 
- 4 Install dependencies:
+ # Install dependencies:
 npm install
 
- 5 Environment Variables
+  Environment Variables
 Set up environment variables by creating a .env file in the root directory. Configure it as follows:
 # Server settings
 PORT=5000
@@ -52,18 +52,18 @@ DB_NAME=yourdbname
 # Authentication settings
 JWT_SECRET=your_jwt_secret
 
-6 Running the API
+# Running the API
 npm start
 
-  7 API Endpoints
+  # API Endpoints
 
-8 Authentication
+# Authentication
 
 Register: POST /createuser
 
 Login: POST /login
 
-9 Dashboard
+# Dashboard
 
 Post Dashboard:Post /todoList
 
@@ -71,15 +71,15 @@ Get Dashboard: GET /getAllToDo
 
 Post Dashboard: Post /assign/:todoId
 
-10 Task Management
+# Task Management
 
 Update Task: PUT Updateatodo/:id
 
 Delete Task: DELETE /deleteTodo/:id
 
-11 Chat
+# Chat
 Send Messages and Receive:
 GET /messages/:userId/:chatPartnerId
 
-12 Usage
+# Usage
 You can test the API endpoints using tools like Postman or Insomnia. Make sure to set up authorization headers (e.g., Bearer Token) when accessing protected routes
