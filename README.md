@@ -59,9 +59,13 @@ Set up environment variables by creating a .env file in the root directory. Conf
 PORT=5000
 
 # Database settings
+
 DB_HOST=localhost
+
 DB_USER=root
+
 DB_PASSWORD=yourpassword
+
 DB_NAME=yourdbname
 
 # Authentication settings
