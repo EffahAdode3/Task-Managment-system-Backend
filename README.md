@@ -20,6 +20,7 @@ Task Management: Add, update, delete, and view tasks.
 Real-Time Chat: Enables real-time messaging using WebSockets.
 
 Tech Stack
+
 Backend: Node.js, Express.js
 Database: MySQL
 ORM: Sequelize
