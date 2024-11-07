@@ -25,8 +25,11 @@ Real-Time Chat: Enables real-time messaging using WebSockets.
 # Tech Stack
 
 Backend: Node.js, Express.js
+
 Database: MySQL
+
 ORM: Sequelize
+
 Real-Time Communication: WebSocket or Socket.io
 
 # Getting Started
