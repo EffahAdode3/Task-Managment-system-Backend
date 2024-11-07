@@ -4,10 +4,10 @@ A REST API developed using Node.js, Express, MySQL, and Sequelize. This API incl
 Table of Contents
 
 Features
-1 Tech Stack
-2 Getting Started
-3 Installation
-5 Environment Variables
+ Tech Stack
+ Getting Started
+ Installation
+ Environment Variables
 Running the API
 API Endpoints
 Usage
